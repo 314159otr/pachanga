@@ -22,8 +22,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -132,53 +136,68 @@ private fun Cell(
 @Composable
 fun FootballStatsScreen() {
     val context = LocalContext.current
-    val table = PachangaDbHelper(context).queryTable("players_stats")
-    val headers = remember { table.headers.toMutableList() }
-    val players  = remember {
+    var headers by remember { mutableStateOf(emptyList<String>()) }
+    val players = remember { mutableStateListOf<PlayerStats>() }
+
+    // Use LaunchedEffect to perform the database query
+    LaunchedEffect(Unit) {
+        val table = PachangaDbHelper(context).queryTable("players_stats")
+        headers = table.headers.toMutableList()
         val playerList = table.rows.map { row ->
             PlayerStats(
                 id = row["id"] as Int,
                 nickname = row["nickname"] as String,
                 name = row["name"] as String,
-                lastnames  = row["lastnames"] as String,
+                lastnames = row["lastnames"] as String,
                 goals = row["goals"] as Int,
                 own_goals = row["own_goals"] as Int,
                 matches = row["matches"] as Int,
                 puskas = row["puskas"] as Int,
             )
         }
-        mutableStateListOf<PlayerStats>().apply{
-            addAll(playerList)
-        }
+        players.clear()
+        players.addAll(playerList)
     }
 
     Column (Modifier.fillMaxSize()){
-    DataTable2(headers = headers, rows = players, modifier = Modifier.weight(1f))
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        horizontalArrangement = Arrangement.SpaceAround
-    ) {
-        Button(
-            onClick = {
-                val sorted = players.sortedByDescending { it.name }
-                players.clear()
-                players.addAll(sorted)
+        // Add a check to prevent rendering the DataTable2 composable until headers and players have data
+        if (headers.isNotEmpty() && players.isNotEmpty()) {
+            DataTable2(headers = headers, rows = players, modifier = Modifier.weight(1f))
+        } else {
+            // Optional: Show a loading indicator or a message while the data is loading
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(text = "Loading stats...")
             }
-        ) {
-            Text("Descending name")
         }
-        Button(
-            onClick = {
-                val sorted = players.sortedBy { it.name }
-                players.clear()
-                players.addAll(sorted)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceAround
+        ) {
+            Button(
+                onClick = {
+                    val sorted = players.sortedByDescending { it.name }
+                    players.clear()
+                    players.addAll(sorted)
+                }
+            ) {
+                Text("Descending name")
             }
-        ) {
-            Text("Ascending name")
+            Button(
+                onClick = {
+                    val sorted = players.sortedBy { it.name }
+                    players.clear()
+                    players.addAll(sorted)
+                }
+            ) {
+                Text("Ascending name")
+            }
         }
-    }}
+    }
 }
 
 @Composable
@@ -198,10 +217,10 @@ fun DataTable2(
         Row (modifier = Modifier.background(Color.LightGray)){
             // first header
             Box(modifier = Modifier
-                    .width(fixedColumnWidth)
-                    .height(headerHeight)
-                    .background(Color.Gray)
-                    .padding(8.dp),
+                .width(fixedColumnWidth)
+                .height(headerHeight)
+                .background(Color.Gray)
+                .padding(8.dp),
                 contentAlignment = Alignment.Center
             ){
                 Text(text = headers.first(), fontWeight = FontWeight.Bold)
@@ -210,17 +229,17 @@ fun DataTable2(
             Row(modifier = Modifier
                 .horizontalScroll(horizontalScrollState)
             ){
-              headers.drop(1).forEach { header ->
-                  Box(modifier = Modifier
-                          .width(normalCellWidth)
-                          .height(headerHeight)
-                          .background(Color.LightGray)
-                          .padding(8.dp),
-                      contentAlignment = Alignment.Center
-                  ){
-                    Text(text = header, fontWeight = FontWeight.Bold)
-                  }
-              }
+                headers.drop(1).forEach { header ->
+                    Box(modifier = Modifier
+                        .width(normalCellWidth)
+                        .height(headerHeight)
+                        .background(Color.LightGray)
+                        .padding(8.dp),
+                        contentAlignment = Alignment.Center
+                    ){
+                        Text(text = header, fontWeight = FontWeight.Bold)
+                    }
+                }
             }
         }
         Row (modifier = Modifier.weight(1f)){
@@ -253,10 +272,10 @@ fun DataTable2(
                         Row {
                             rowValues(row).drop(1).forEach { cell ->
                                 Box(modifier = Modifier
-                                        .width(normalCellWidth)
-                                        .height(rowHeight)
-                                        .background(Color.White)
-                                        .padding(8.dp),
+                                    .width(normalCellWidth)
+                                    .height(rowHeight)
+                                    .background(Color.White)
+                                    .padding(8.dp),
                                     contentAlignment = Alignment.Center
                                 ) {
                                     Text(text = cell.toString())
@@ -269,4 +288,3 @@ fun DataTable2(
         }
     }
 }
-

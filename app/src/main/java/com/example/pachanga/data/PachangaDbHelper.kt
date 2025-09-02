@@ -1,16 +1,22 @@
-// com/example/pachanga/data/FootballDbHelper.kt
 package com.example.pachanga.data
 
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
+import java.io.File
+
 class PachangaDbHelper(context: Context) : SQLiteOpenHelper(
     context,
     DB_NAME,
     null,
     DB_VERSION
 ) {
+
+    private val dbPath = context.filesDir.path + "/databases/"
+    private val dbFile = File(dbPath, DB_NAME)
+
     override fun onCreate(db: SQLiteDatabase?) {
         // Not needed if we ship a prebuilt DB in assets
     }
@@ -18,6 +24,27 @@ class PachangaDbHelper(context: Context) : SQLiteOpenHelper(
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         // Handle migrations if schema changes
     }
+
+    // Custom getter to check for the downloaded database file
+    override fun getReadableDatabase(): SQLiteDatabase {
+        if (dbFile.exists()) {
+            Log.d("PachangaDbHelper", "Opening downloaded database at: ${dbFile.absolutePath}")
+            return SQLiteDatabase.openDatabase(dbFile.path, null, SQLiteDatabase.OPEN_READONLY)
+        }
+        Log.d("PachangaDbHelper", "Opening database from assets.")
+        return super.getReadableDatabase()
+    }
+
+    // Custom getter to check for the downloaded database file
+    override fun getWritableDatabase(): SQLiteDatabase {
+        if (dbFile.exists()) {
+            Log.d("PachangaDbHelper", "Opening downloaded database at: ${dbFile.absolutePath}")
+            return SQLiteDatabase.openDatabase(dbFile.path, null, SQLiteDatabase.OPEN_READWRITE)
+        }
+        Log.d("PachangaDbHelper", "Opening database from assets.")
+        return super.getWritableDatabase()
+    }
+
 
     companion object {
         private const val DB_NAME = "pachanga.db"

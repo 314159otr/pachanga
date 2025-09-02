@@ -95,7 +95,7 @@ fun GreetingScreen(navController: NavController) {
 
                         // Launch a coroutine to handle the download in the background
                         coroutineScope.launch {
-                            val downloadUrl = "https://github.com/314159otr/pachanga/blob/main/app/src/main/assets/pachanga.db" // Replace with your actual URL
+                            val downloadUrl = "https://raw.githubusercontent.com/314159otr/pachanga/main/app/src/main/assets/pachanga.db"
                             val success = downloadDatabase(context, downloadUrl, "pachanga.db")
 
                             if (success) {
