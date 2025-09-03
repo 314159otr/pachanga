@@ -1,20 +1,18 @@
 package com.example.pachanga.ui
 
-import android.content.Context
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,6 +20,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -31,9 +30,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.pachanga.R
-import com.example.pachanga.data.copyDatabaseFromAssets
 import com.example.pachanga.data.downloadDatabase
+import com.example.pachanga.shared.Constants
 import kotlinx.coroutines.launch
+import java.io.File
 
 @Composable
 fun GreetingScreen(navController: NavController) {
@@ -41,11 +41,7 @@ fun GreetingScreen(navController: NavController) {
     var downloadStatus by remember { mutableStateOf<String?>(null) }
     var isDownloading by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
-
-    // Use LaunchedEffect to handle the initial database copy from assets
-    LaunchedEffect(key1 = Unit) {
-        copyDatabaseFromAssets(context, "pachanga.db")
-    }
+    var downloadNeeded by remember { mutableStateOf(false) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -61,12 +57,6 @@ fun GreetingScreen(navController: NavController) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "Pachanga!",
-                fontSize = 28.sp,
-                color = MaterialTheme.colorScheme.onPrimary
-            )
-            Spacer(modifier = Modifier.height(24.dp))
 
             if (isDownloading) {
                 CircularProgressIndicator(
@@ -74,7 +64,7 @@ fun GreetingScreen(navController: NavController) {
                     color = MaterialTheme.colorScheme.onPrimary
                 )
                 Text(
-                    text = downloadStatus ?: "Downloading...",
+                    text = downloadStatus ?: "Descargando...",
                     fontSize = 16.sp,
                     color = MaterialTheme.colorScheme.onPrimary
                 )
@@ -91,19 +81,17 @@ fun GreetingScreen(navController: NavController) {
                 onClick = {
                     if (!isDownloading) {
                         isDownloading = true
-                        downloadStatus = "Checking for updates..."
+                        downloadStatus = "Descargando..."
 
                         // Launch a coroutine to handle the download in the background
                         coroutineScope.launch {
-                            val downloadUrl = "https://github.com/314159otr/pachanga/releases/latest/download/pachanga.db"
-                            val success = downloadDatabase(context, downloadUrl, "pachanga.db")
+                            val success = downloadDatabase(context)
 
                             if (success) {
-                                downloadStatus = "Download successful!"
-                                // Navigate to the next screen after a successful download
-                                navController.navigate("stats")
+                                downloadStatus = "Descarga Completada!"
+                                downloadNeeded = false
                             } else {
-                                downloadStatus = "Download failed."
+                                downloadStatus = "Descarga Fallida!"
                             }
                             isDownloading = false
                         }
@@ -111,7 +99,36 @@ fun GreetingScreen(navController: NavController) {
                 },
                 enabled = !isDownloading
             ) {
-                Text("Start")
+                Text("Descargar última versión")
+            }
+            if (downloadNeeded) {
+                Text(
+                    text = " ↑ Necesita descargar para acceder ↑ ",
+                    fontSize = 16.sp,
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier
+                        .padding(bottom = 8.dp)
+                        .background(Color.Black.copy(alpha = 0.8f), shape = RoundedCornerShape(8.dp))
+
+                )
+            }
+            Button(
+                onClick = {
+                    val dbFilePath = File(context.filesDir.path + "/databases/pachanga.db")
+                    if (dbFilePath.exists()){
+                        navController.navigate(Constants.Nav.PLAYERS_STATS.route)
+                    }else{
+                        downloadNeeded = true
+                    }
+
+                },
+                enabled = !downloadNeeded
+            ) {
+                Text(
+                    text = "Pachanga!",
+                    fontSize = 16.sp,
+                    color = MaterialTheme.colorScheme.onPrimary,
+                )
             }
         }
     }
