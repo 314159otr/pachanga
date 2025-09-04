@@ -4,23 +4,22 @@ import android.content.Context
 import android.graphics.Paint
 import android.util.TypedValue
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -76,7 +75,7 @@ fun FootballStatsScreen() {
     }
 
     Column (Modifier.safeDrawingPadding().fillMaxSize()){
-        // Add a check to prevent rendering the DataTable2 composable until headers and players have data
+        // Add a check to prevent rendering the DataTable composable until headers and players have data
         if (headers.isNotEmpty() && players.isNotEmpty()) {
             DataTable(headers = headers, rows = players, modifier = Modifier.weight(1f))
         } else {
@@ -86,31 +85,6 @@ fun FootballStatsScreen() {
                 contentAlignment = Alignment.Center
             ) {
                 Text(text = "Loading stats...")
-            }
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceAround
-        ) {
-            Button(
-                onClick = {
-                    val sorted = players.sortedByDescending { it.name }
-                    players.clear()
-                    players.addAll(sorted)
-                }
-            ) {
-                Text("Descending name")
-            }
-            Button(
-                onClick = {
-                    val sorted = players.sortedBy { it.name }
-                    players.clear()
-                    players.addAll(sorted)
-                }
-            ) {
-                Text("Ascending name")
             }
         }
     }
@@ -128,6 +102,8 @@ fun DataTable(
     val horizontalScrollState = rememberScrollState()
     val verticalScrollState  = rememberScrollState()
     val widths = IntArray(headers.size)
+    val currentSorting = remember { mutableStateOf("nickname") }
+
     val alignments = Array(headers.size){ index ->
         if (rowValues(rows[0])[index].toDoubleOrNull() != null){
             Alignment.CenterEnd
@@ -154,8 +130,11 @@ fun DataTable(
                 .width(widths[0].dp + 16.dp)
                 .height(headerHeight)
                 .background(Color.Gray)
-                .padding(8.dp),
-                contentAlignment = alignments[0]
+                .padding(8.dp)
+                .clickable{
+                    sortTable(headers.first(),rows, currentSorting = currentSorting)
+                },
+                contentAlignment = alignments[0],
             ){
                 Text(text = headers.first(), fontWeight = FontWeight.Bold)
             }
@@ -168,7 +147,10 @@ fun DataTable(
                         .width(widths[index + 1].dp + 16.dp)
                         .height(headerHeight)
                         .background(Color.LightGray)
-                        .padding(8.dp),
+                        .padding(8.dp)
+                        .clickable{
+                            sortTable(headers[index + 1], rows, currentSorting = currentSorting)
+                        },
                         contentAlignment = alignments[index + 1]
                     ){
                         Text(text = header, fontWeight = FontWeight.Bold)
@@ -221,6 +203,85 @@ fun DataTable(
             }
         }
     }
+}
+fun sortTable(header: String, rows: MutableList<PlayerStats>, currentSorting: MutableState<String>){
+    var sorted = rows.sortedBy { it.name }
+    when (header) {
+        "id" -> {
+            if (currentSorting.value == "id") {
+                currentSorting.value = "idDescending"
+                sorted = rows.sortedByDescending { it.id }
+            } else {
+                currentSorting.value = "id"
+                sorted = rows.sortedBy { it.id }
+            }
+        }
+        "nickname" -> {
+            if (currentSorting.value == "nickname") {
+                currentSorting.value = "nicknameDescending"
+                sorted = rows.sortedByDescending { it.nickname }
+            } else {
+                currentSorting.value = "nickname"
+                sorted = rows.sortedBy { it.nickname }
+            }
+        }
+        "name" -> {
+            if (currentSorting.value == "name") {
+                currentSorting.value = "nameDescending"
+                sorted = rows.sortedByDescending { it.name }
+            } else {
+                currentSorting.value = "name"
+                sorted = rows.sortedBy { it.name }
+            }
+        }
+        "lastnames" -> {
+            if (currentSorting.value == "lastnames") {
+                currentSorting.value = "lastnamesDescending"
+                sorted = rows.sortedByDescending { it.lastnames }
+            } else {
+                currentSorting.value = "lastnames"
+                sorted = rows.sortedBy { it.lastnames }
+            }
+        }
+        "goals" -> {
+            if (currentSorting.value == "goals") {
+                currentSorting.value = "goalsDescending"
+                sorted = rows.sortedByDescending { it.goals }
+            } else {
+                currentSorting.value = "goals"
+                sorted = rows.sortedBy { it.goals }
+            }
+        }
+        "own_goals" -> {
+            if (currentSorting.value == "own_goals") {
+                currentSorting.value = "own_goalsDescending"
+                sorted = rows.sortedByDescending { it.own_goals }
+            } else {
+                currentSorting.value = "own_goals"
+                sorted = rows.sortedBy { it.own_goals }
+            }
+        }
+        "matches" -> {
+            if (currentSorting.value == "matches") {
+                currentSorting.value = "matchesDescending"
+                sorted = rows.sortedByDescending { it.matches }
+            } else {
+                currentSorting.value = "matches"
+                sorted = rows.sortedBy { it.matches }
+            }
+        }
+        "puskas" -> {
+            if (currentSorting.value == "puskas") {
+                currentSorting.value = "puskasDescending"
+                sorted = rows.sortedByDescending { it.puskas }
+            } else {
+                currentSorting.value = "puskas"
+                sorted = rows.sortedBy { it.puskas }
+            }
+        }
+    }
+    rows.clear()
+    rows.addAll(sorted)
 }
 /**
  * Calculates the visual width of a string in density-independent pixels (dp).
