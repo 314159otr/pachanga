@@ -1,33 +1,31 @@
 package com.example.pachanga.ui
 
-import android.service.autofill.OnClickAction
+import android.R
+import android.content.Context
+import android.graphics.Paint
+import android.util.TypedValue
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,74 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.pachanga.data.PachangaDbHelper
 import com.example.pachanga.data.PlayerStats
-
-private val CELL_WIDTH = 120.dp  // tweak to taste
-
-@Composable
-fun DataTable1(
-    headers: List<String>,
-    rows: List<PlayerStats>
-) {
-    val hScroll = rememberScrollState()
-
-    Box(Modifier.fillMaxSize()) {
-        // Horizontal scrolling container
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .horizontalScroll(hScroll)
-        ) {
-            // Everything inside this Column will scroll horizontally together
-            Column(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .padding(8.dp)
-            ) {
-                // Header
-                Row(
-                    modifier = Modifier
-                        .background(Color(0xFFEFEFEF))
-                        .border(1.dp, Color(0xFFDDDDDD))
-                        .padding(vertical = 8.dp)
-                ) {
-                    headers.forEach { header ->
-                        Cell(
-                            text = header,
-                            bold = true,
-                            modifier = Modifier.width(CELL_WIDTH)
-                        )
-                    }
-                }
-
-                Divider()
-
-                // Data (vertical scroll handled by LazyColumn)
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .border(1.dp, Color(0xFFEEEEEE))
-                ) {
-                    items(rows) { p ->
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(Color.Transparent)
-                                .padding(vertical = 6.dp)
-                        ) {
-                            rowValues(p).forEach { value ->
-                                Cell(
-                                    text = value,
-                                    modifier = Modifier.width(CELL_WIDTH)
-                                )
-                            }
-                        }
-                        Divider(color = Color(0xFFEEEEEE))
-                    }
-                }
-            }
-        }
-    }
-}
+import kotlin.math.roundToInt
 
 // Helper to turn a PlayerStats into a list of strings in the same order as headers
 private fun rowValues(p: PlayerStats): List<String> = listOf(
@@ -117,21 +48,6 @@ private fun rowValues(p: PlayerStats): List<String> = listOf(
     p.matches.toString(),
     p.puskas.toString()
 )
-
-@Composable
-private fun Cell(
-    text: String,
-    bold: Boolean = false,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = text,
-        fontWeight = if (bold) FontWeight.Bold else FontWeight.Normal,
-        modifier = modifier
-            .padding(horizontal = 12.dp, vertical = 4.dp)
-    )
-}
-
 @Preview
 @Composable
 fun FootballStatsScreen() {
@@ -162,7 +78,7 @@ fun FootballStatsScreen() {
     Column (Modifier.fillMaxSize()){
         // Add a check to prevent rendering the DataTable2 composable until headers and players have data
         if (headers.isNotEmpty() && players.isNotEmpty()) {
-            DataTable2(headers = headers, rows = players, modifier = Modifier.weight(1f))
+            DataTable(headers = headers, rows = players, modifier = Modifier.weight(1f))
         } else {
             // Optional: Show a loading indicator or a message while the data is loading
             Box(
@@ -201,27 +117,45 @@ fun FootballStatsScreen() {
 }
 
 @Composable
-fun DataTable2(
+fun DataTable(
     headers: List<String>,
     rows: MutableList<PlayerStats>,
     modifier: Modifier
 ) {
-    val fixedColumnWidth = 120.dp
-    val normalCellWidth = 120.dp
+    val context = LocalContext.current;
     val headerHeight = 48.dp
     val rowHeight = 48.dp
     val horizontalScrollState = rememberScrollState()
     val verticalScrollState  = rememberScrollState()
+    val widths = IntArray(headers.size);
+    val alignments = Array(headers.size){ index ->
+        if (rowValues(rows[0])[index].toDoubleOrNull() != null){
+            Alignment.CenterEnd
+        }else{
+            Alignment.CenterStart
+        }
+    };
+    headers.forEachIndexed { index, header ->
+        widths[index] = header.getStringWidthInDp(context)
+    }
+    rows.forEach { row ->
+        rowValues(row).forEachIndexed { index, it ->
+            val length = it.getStringWidthInDp(context);
+            if (length > widths[index]) {
+                widths[index] = length
+            }
+        }
+    }
 
     Column (modifier = modifier){
         Row (modifier = Modifier.background(Color.LightGray)){
             // first header
             Box(modifier = Modifier
-                .width(fixedColumnWidth)
+                .width(widths[0].dp + 16.dp)
                 .height(headerHeight)
                 .background(Color.Gray)
                 .padding(8.dp),
-                contentAlignment = Alignment.Center
+                contentAlignment = alignments[0]
             ){
                 Text(text = headers.first(), fontWeight = FontWeight.Bold)
             }
@@ -229,13 +163,13 @@ fun DataTable2(
             Row(modifier = Modifier
                 .horizontalScroll(horizontalScrollState)
             ){
-                headers.drop(1).forEach { header ->
+                headers.drop(1).forEachIndexed { index, header ->
                     Box(modifier = Modifier
-                        .width(normalCellWidth)
+                        .width(widths[index + 1].dp + 16.dp)
                         .height(headerHeight)
                         .background(Color.LightGray)
                         .padding(8.dp),
-                        contentAlignment = Alignment.Center
+                        contentAlignment = alignments[index + 1]
                     ){
                         Text(text = header, fontWeight = FontWeight.Bold)
                     }
@@ -245,17 +179,17 @@ fun DataTable2(
         Row (modifier = Modifier.weight(1f)){
             // first column
             Column (modifier = Modifier
-                .width(fixedColumnWidth)
+                .width(widths[0].dp + 16.dp)
                 .verticalScroll(verticalScrollState)
                 .background(Color.LightGray)
             ) {
                 rows.forEach { row ->
                     Box(
                         modifier = Modifier
-                            .width(fixedColumnWidth)
+                            .width(widths[0].dp + 16.dp)
                             .height(rowHeight)
                             .padding(8.dp),
-                        contentAlignment = Alignment.Center
+                        contentAlignment = alignments[0]
                     ) {
                         Text(text = row.id.toString(), fontWeight = FontWeight.SemiBold)
                     }
@@ -270,13 +204,13 @@ fun DataTable2(
                 Column {
                     rows.forEach { row ->
                         Row {
-                            rowValues(row).drop(1).forEach { cell ->
+                            rowValues(row).drop(1).forEachIndexed { index, cell ->
                                 Box(modifier = Modifier
-                                    .width(normalCellWidth)
+                                    .width(widths[index + 1].dp + 16.dp)
                                     .height(rowHeight)
                                     .background(Color.White)
                                     .padding(8.dp),
-                                    contentAlignment = Alignment.Center
+                                    contentAlignment = alignments[index + 1]
                                 ) {
                                     Text(text = cell.toString())
                                 }
@@ -287,4 +221,52 @@ fun DataTable2(
             }
         }
     }
+}
+/**
+ * Calculates the visual width of a string in density-independent pixels (dp).
+ * This is useful for dynamically sizing UI elements to fit text content.
+ *
+ * @param context The Android context, needed to access display metrics.
+ * @param text The string whose width needs to be measured.
+ * @param textSizeSp The size of the text in sp (scale-independent pixels). Defaults to 16sp for better compatibility with Jetpack Compose.
+ * @return The width of the string in dp.
+ */
+fun getStringWidthInDp(context: Context, text: String, textSizeSp: Float = 16f): Int {
+    // Get the screen's display metrics (like density).
+    val displayMetrics = context.resources.displayMetrics
+
+    // Convert the given text size from sp to pixels.
+    // This is crucial because Paint.measureText() works with pixels.
+    val textSizePx = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_SP,
+        textSizeSp,
+        displayMetrics
+    )
+
+    // Create a Paint object to measure the text.
+    val paint = Paint()
+    paint.textSize = textSizePx
+
+    // Measure the string's width in pixels.
+    val stringWidthPx = paint.measureText(text)
+
+    // Convert the pixel width to dp.
+    val density = displayMetrics.density
+    val stringWidthDp = stringWidthPx / density
+
+    // Round the result to the nearest integer dp value before returning.
+    return stringWidthDp.roundToInt()
+}
+
+/**
+ * An extension function on String to make the function call more concise.
+ *
+ * Example usage: "Hello World".getStringWidthInDp(context)
+ *
+ * @param context The Android context.
+ * @param textSizeSp The text size in sp.
+ * @return The width of the string in dp.
+ */
+fun String.getStringWidthInDp(context: Context, textSizeSp: Float = 16f): Int {
+    return getStringWidthInDp(context, this, textSizeSp)
 }
