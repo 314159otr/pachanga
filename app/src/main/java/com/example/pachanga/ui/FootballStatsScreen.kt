@@ -1,6 +1,5 @@
 package com.example.pachanga.ui
 
-import android.R
 import android.content.Context
 import android.graphics.Paint
 import android.util.TypedValue
@@ -14,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -75,7 +75,7 @@ fun FootballStatsScreen() {
         players.addAll(playerList)
     }
 
-    Column (Modifier.fillMaxSize()){
+    Column (Modifier.safeDrawingPadding().fillMaxSize()){
         // Add a check to prevent rendering the DataTable2 composable until headers and players have data
         if (headers.isNotEmpty() && players.isNotEmpty()) {
             DataTable(headers = headers, rows = players, modifier = Modifier.weight(1f))
@@ -122,25 +122,25 @@ fun DataTable(
     rows: MutableList<PlayerStats>,
     modifier: Modifier
 ) {
-    val context = LocalContext.current;
+    val context = LocalContext.current
     val headerHeight = 48.dp
     val rowHeight = 48.dp
     val horizontalScrollState = rememberScrollState()
     val verticalScrollState  = rememberScrollState()
-    val widths = IntArray(headers.size);
+    val widths = IntArray(headers.size)
     val alignments = Array(headers.size){ index ->
         if (rowValues(rows[0])[index].toDoubleOrNull() != null){
             Alignment.CenterEnd
         }else{
             Alignment.CenterStart
         }
-    };
+    }
     headers.forEachIndexed { index, header ->
         widths[index] = header.getStringWidthInDp(context)
     }
     rows.forEach { row ->
         rowValues(row).forEachIndexed { index, it ->
-            val length = it.getStringWidthInDp(context);
+            val length = it.getStringWidthInDp(context)
             if (length > widths[index]) {
                 widths[index] = length
             }
@@ -212,7 +212,7 @@ fun DataTable(
                                     .padding(8.dp),
                                     contentAlignment = alignments[index + 1]
                                 ) {
-                                    Text(text = cell.toString())
+                                    Text(text = cell)
                                 }
                             }
                         }

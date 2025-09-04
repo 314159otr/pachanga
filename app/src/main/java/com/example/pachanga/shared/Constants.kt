@@ -11,8 +11,4 @@ object Constants {
         PLAYERS_STATS("Players Stats"),
         MATCHES("Matches");
     }
-    object Messages {
-        const val DOWNLOAD_REQUIRED = "↑ Necesita descargar para acceder ↑"
-        const val ERROR_GENERIC = "Ha ocurrido un error"
-    }
 }
