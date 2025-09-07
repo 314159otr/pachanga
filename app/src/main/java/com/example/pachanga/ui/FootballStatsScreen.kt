@@ -56,14 +56,14 @@ fun FootballStatsScreen() {
 
     // Use LaunchedEffect to perform the database query
     LaunchedEffect(Unit) {
-        val table = PachangaDbHelper(context).queryTable("players_stats")
+        val table = PachangaDbHelper(context).queryTable("vw_player_stats")
         headers = table.headers.toMutableList()
         val playerList = table.rows.map { row ->
             PlayerStats(
                 id = row["id"] as Int,
                 nickname = row["nickname"] as String,
-                name = row["name"] as String,
-                lastnames = row["lastnames"] as String,
+                name = row["first_name"] as String,
+                lastnames = row["last_name"] as String,
                 goals = row["goals"] as Int,
                 own_goals = row["own_goals"] as Int,
                 matches = row["matches"] as Int,
@@ -79,7 +79,6 @@ fun FootballStatsScreen() {
         if (headers.isNotEmpty() && players.isNotEmpty()) {
             DataTable(headers = headers, rows = players, modifier = Modifier.weight(1f))
         } else {
-            // Optional: Show a loading indicator or a message while the data is loading
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
