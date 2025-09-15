@@ -45,7 +45,9 @@ private fun rowValues(p: PlayerStats): List<String> = listOf(
     p.goals.toString(),
     p.own_goals.toString(),
     p.matches.toString(),
-    p.puskas.toString()
+    p.puskas.toString(),
+    p.wins.toString(),
+    p.win_ratio.toString()
 )
 @Preview
 @Composable
@@ -68,6 +70,8 @@ fun FootballStatsScreen() {
                 own_goals = row["own_goals"] as Int,
                 matches = row["matches"] as Int,
                 puskas = row["puskas"] as Int,
+                wins = row["wins"] as Int,
+                win_ratio = row["win_ratio"] as Float
             )
         }
         players.clear()

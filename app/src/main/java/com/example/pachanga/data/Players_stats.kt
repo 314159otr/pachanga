@@ -8,5 +8,7 @@ data class PlayerStats (
     val goals: Int,
     val own_goals: Int,
     val matches: Int,
-    val puskas: Int
+    val puskas: Int,
+    val wins: Int,
+    val win_ratio: Float,
 )
