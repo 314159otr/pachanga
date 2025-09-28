@@ -26,7 +26,7 @@ fun FootballStatsScreen() {
 
     // Use LaunchedEffect to perform the database query
     LaunchedEffect(Unit) {
-        val table = PachangaDbHelper(context).queryTable("vw_player_stats")
+        val table = PachangaDbHelper(context).queryTable("vw_player_stats_season_2")
         headers = table.headers.toMutableList()
         rows.clear()
         rows.addAll(table.rows)

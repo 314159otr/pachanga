@@ -40,6 +40,7 @@ fun DataTable(
     val verticalScrollState  = rememberScrollState()
     val widths = IntArray(headers.size)
     val currentSorting = remember { mutableStateOf("nickname") }
+    val colors = arrayOf(Color.White, Color.LightGray)
 
     val alignments = Array(headers.size) { index ->
         if (rows[0][headers[index]] is Number) {
@@ -61,7 +62,7 @@ fun DataTable(
     }
 
     Column (modifier = modifier){
-        Row (modifier = Modifier.background(Color.LightGray)){
+        Row (modifier = Modifier.background(Color.Gray)){
             // first header
             Box(modifier = Modifier
                 .width(widths[0].dp + 16.dp)
@@ -77,13 +78,13 @@ fun DataTable(
             }
             // headers
             Row(modifier = Modifier
-                .horizontalScroll(horizontalScrollState)
+                .horizontalScroll(horizontalScrollState, overscrollEffect = null)
             ){
                 headers.drop(1).forEachIndexed { index, header ->
                     Box(modifier = Modifier
                         .width(widths[index + 1].dp + 16.dp)
                         .height(headerHeight)
-                        .background(Color.LightGray)
+                        .background(Color.Gray)
                         .padding(8.dp)
                         .clickable{
                             sortTable(headers[index + 1], rows, currentSorting = currentSorting)
@@ -99,14 +100,14 @@ fun DataTable(
             // first column
             Column (modifier = Modifier
                 .width(widths[0].dp + 16.dp)
-                .verticalScroll(verticalScrollState)
-                .background(Color.LightGray)
+                .verticalScroll(verticalScrollState, overscrollEffect = null)
             ) {
-                rows.forEach { row ->
+                rows.forEachIndexed { i, row ->
                     Box(
                         modifier = Modifier
                             .width(widths[0].dp + 16.dp)
                             .height(rowHeight)
+                            .background(colors[i % 2])
                             .padding(8.dp),
                         contentAlignment = alignments[0]
                     ) {
@@ -117,17 +118,17 @@ fun DataTable(
             // columns
             Box(modifier = Modifier
                 .weight(1f)
-                .horizontalScroll(horizontalScrollState)
-                .verticalScroll(verticalScrollState)
+                .horizontalScroll(horizontalScrollState, overscrollEffect = null)
+                .verticalScroll(verticalScrollState, overscrollEffect = null)
             ){
                 Column {
-                    rows.forEach { row ->
-                        Row {
+                    rows.forEachIndexed { index, row ->
+                        Row(modifier = Modifier
+                            .background(colors[index % 2])) {
                             for (i in 1 until headers.size){
                                 Box(modifier = Modifier
                                     .width(widths[i].dp + 16.dp)
                                     .height(rowHeight)
-                                    .background(Color.White)
                                     .padding(8.dp),
                                     contentAlignment = alignments[i]
                                 ) {
