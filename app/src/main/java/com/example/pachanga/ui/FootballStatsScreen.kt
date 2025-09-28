@@ -44,9 +44,9 @@ private fun rowValues(p: PlayerStats): List<String> = listOf(
     p.lastnames,
     p.goals.toString(),
     p.own_goals.toString(),
-    p.matches.toString(),
     p.puskas.toString(),
     p.wins.toString(),
+    p.matches.toString(),
     p.win_ratio.toString()
 )
 @Preview
@@ -68,9 +68,9 @@ fun FootballStatsScreen() {
                 lastnames = row["last_name"] as String,
                 goals = row["goals"] as Int,
                 own_goals = row["own_goals"] as Int,
-                matches = row["matches"] as Int,
                 puskas = row["puskas"] as Int,
                 wins = row["wins"] as Int,
+                matches = row["matches"] as Int,
                 win_ratio = row["win_ratio"] as Float
             )
         }
@@ -280,6 +280,24 @@ fun sortTable(header: String, rows: MutableList<PlayerStats>, currentSorting: Mu
             } else {
                 currentSorting.value = "puskas"
                 sorted = rows.sortedBy { it.puskas }
+            }
+        }
+        "wins" -> {
+            if (currentSorting.value == "wins") {
+                currentSorting.value = "winsDescending"
+                sorted = rows.sortedByDescending { it.wins }
+            } else {
+                currentSorting.value = "wins"
+                sorted = rows.sortedBy { it.wins }
+            }
+        }
+        "win_ratio" -> {
+            if (currentSorting.value == "win_ratio") {
+                currentSorting.value = "win_ratioDescending"
+                sorted = rows.sortedByDescending { it.win_ratio }
+            } else {
+                currentSorting.value = "win_ratio"
+                sorted = rows.sortedBy { it.win_ratio }
             }
         }
     }
