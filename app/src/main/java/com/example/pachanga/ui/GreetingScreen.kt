@@ -1,5 +1,6 @@
 package com.example.pachanga.ui
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -116,7 +117,7 @@ fun GreetingScreen(navController: NavController) {
                 onClick = {
                     val dbFilePath = File(context.filesDir.path + "/databases/pachanga.db")
                     if (dbFilePath.exists()){
-                        navController.navigate(Constants.Nav.PLAYERS_STATS.route)
+                        navController.navigate(Constants.RootRoutes.MAIN_CONTAINER)
                     }else{
                         downloadNeeded = true
                     }
@@ -132,10 +133,4 @@ fun GreetingScreen(navController: NavController) {
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun PreviewGreetingScreen() {
-    GreetingScreen(navController = rememberNavController())
 }
