@@ -1,6 +1,8 @@
 package com.example.pachanga.ui
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,8 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.DividerDefaults
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -51,7 +51,7 @@ fun Player(player: Map<String, Any?>, modifier: Modifier = Modifier){
             Column (
                 modifier = Modifier
                     .fillMaxHeight()
-                    .clickable {},
+                    .clickable {}
             ){
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
@@ -251,11 +251,15 @@ fun MatchesScreen() {
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()
+                    .border(
+                        BorderStroke(4.dp, Color.White),
+                    )
             )
             Column(
                 modifier = Modifier
                     .safeDrawingPadding()
-                    .fillMaxSize()
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Team1(
                     players = team1,
@@ -268,12 +272,8 @@ fun MatchesScreen() {
                         .fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text("5")
-                    HorizontalDivider(
-                        thickness = DividerDefaults.Thickness,
-                        color = DividerDefaults.color
-                    )
-                    Text("3")
+                    Text("15")
+                    Text("14")
                 }
 
                 Team2(
