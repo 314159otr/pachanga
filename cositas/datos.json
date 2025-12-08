@@ -1,0 +1,1596 @@
+{
+  "temporadas": [
+    {
+      "nombre": "Temporada 1",
+      "jornadas": [
+        {
+          "nombre": "Jornada 1",
+          "puskas": "Pito",
+          "pichichi": "Pito",
+          "fecha": "2024-10-04",
+          "equipo_ganador": [
+            {
+              "nombre": "Pito",
+              "goles": 6
+            },
+            {
+              "nombre": "Rurru",
+              "goles": 4
+            },
+            {
+              "nombre": "Juanjo",
+              "goles": 0
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 2
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 3
+            },
+            {
+              "nombre": "Raul",
+              "goles": 0
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Unai",
+              "goles": 2
+            },
+            {
+              "nombre": "Oscar",
+              "goles": 1
+            },
+            {
+              "nombre": "Davisito",
+              "goles": 3
+            },
+            {
+              "nombre": "JuanPa",
+              "goles": 5
+            },
+            {
+              "nombre": "Dani",
+              "goles": 4
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 0
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 2",
+          "puskas": "Javixu",
+          "pichichi": "Rurru",
+          "fecha": "2024-10-11",
+          "equipo_ganador": [
+            {
+              "nombre": "Rurru",
+              "goles": 5
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 0
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 1
+            },
+            {
+              "nombre": "Raul",
+              "goles": 0
+            },
+            {
+              "nombre": "Unai",
+              "goles": 3
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 0
+            },
+            {
+              "nombre": "Felipe",
+              "goles": 4
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Pito",
+              "goles": 2
+            },
+            {
+              "nombre": "Juanjo",
+              "goles": 1
+            },
+            {
+              "nombre": "Oscar",
+              "goles": 0
+            },
+            {
+              "nombre": "Davisito",
+              "goles": 4
+            },
+            {
+              "nombre": "JuanPa",
+              "goles": 2
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 2
+            },
+            {
+              "nombre": "Pol",
+              "goles": 1
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 3",
+          "puskas": "Davisito",
+          "pichichi": "Almendra",
+          "fecha": "2024-10-18",
+          "equipo_ganador": [
+            {
+              "nombre": "Rurru",
+              "goles": 3
+            },
+            {
+              "nombre": "Juanjo",
+              "goles": 1
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 1
+            },
+            {
+              "nombre": "Unai",
+              "goles": 2
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 5
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Pito",
+              "goles": 3
+            },
+            {
+              "nombre": "Raul",
+              "goles": 0
+            },
+            {
+              "nombre": "Oscar",
+              "goles": 1
+            },
+            {
+              "nombre": "Davisito",
+              "goles": 1
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 2
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 4",
+          "puskas": "Davisito",
+          "pichichi": "Unai, Rurru",
+          "fecha": "2024-10-25",
+          "equipo_ganador": [
+            {
+              "nombre": "Pito",
+              "goles": 2
+            },
+            {
+              "nombre": "Juanjo",
+              "goles": 1
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 1
+            },
+            {
+              "nombre": "Unai",
+              "goles": 5
+            },
+            {
+              "nombre": "Davisito",
+              "goles": 2
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 3
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Rurru",
+              "goles": 5
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 0
+            },
+            {
+              "nombre": "Raul",
+              "goles": 0
+            },
+            {
+              "nombre": "JuanPa",
+              "goles": 3
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 3
+            },
+            {
+              "nombre": "Pol",
+              "goles": 2
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 5",
+          "puskas": "Javixu",
+          "pichichi": "Javixu",
+          "fecha": "2024-11-01",
+          "equipo_ganador": [
+            {
+              "nombre": "Pito",
+              "goles": 3
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 6
+            },
+            {
+              "nombre": "Unai",
+              "goles": 1
+            },
+            {
+              "nombre": "JuanPa",
+              "goles": 4
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 2
+            },
+            {
+              "nombre": "Giovanny",
+              "goles": 1
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Juanjo",
+              "goles": 2
+            },
+            {
+              "nombre": "Raul",
+              "goles": 0
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 9
+            },
+            {
+              "nombre": "Felipe",
+              "goles": 5
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 6",
+          "puskas": "Davisito",
+          "pichichi": "Davisito",
+          "fecha": "2024-11-08",
+          "equipo_ganador": [
+            {
+              "nombre": "Puvero",
+              "goles": 2
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 5
+            },
+            {
+              "nombre": "Raul",
+              "goles": 0
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 5
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 5
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Pito",
+              "goles": 5
+            },
+            {
+              "nombre": "Rurru",
+              "goles": 1
+            },
+            {
+              "nombre": "Juanjo",
+              "goles": 2
+            },
+            {
+              "nombre": "Oscar",
+              "goles": 1
+            },
+            {
+              "nombre": "Davisito",
+              "goles": 6
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 7",
+          "puskas": "Juanjo",
+          "pichichi": "Almendra",
+          "fecha": "2024-11-15",
+          "equipo_ganador": [
+            {
+              "nombre": "Rurru",
+              "goles": 3
+            },
+            {
+              "nombre": "Juanjo",
+              "goles": 4
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 2
+            },
+            {
+              "nombre": "Raul",
+              "goles": 0
+            },
+            {
+              "nombre": "Davisito",
+              "goles": 2
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 8
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Pito",
+              "goles": 2
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 2
+            },
+            {
+              "nombre": "Oscar",
+              "goles": 1
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 4
+            },
+            {
+              "nombre": "Pol",
+              "goles": 1
+            },
+            {
+              "nombre": "Miguel",
+              "goles": 4
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 8",
+          "puskas": "Nadie",
+          "pichichi": "Davisito",
+          "fecha": "2024-11-22",
+          "equipo_ganador": [
+            {
+              "nombre": "Davisote",
+              "goles": 1
+            },
+            {
+              "nombre": "Oscar",
+              "goles": 0
+            },
+            {
+              "nombre": "Davisito",
+              "goles": 6
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 4
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 5
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Pito",
+              "goles": 2
+            },
+            {
+              "nombre": "Rurru",
+              "goles": 1
+            },
+            {
+              "nombre": "Juanjo",
+              "goles": 1
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 2
+            },
+            {
+              "nombre": "Raul",
+              "goles": 0
+            },
+            {
+              "nombre": "Unai",
+              "goles": 3
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 9",
+          "puskas": "Pito",
+          "pichichi": "JuanPa",
+          "fecha": "2024-11-30",
+          "equipo_ganador": [
+            {
+              "nombre": "Juanjo",
+              "goles": 2
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 6
+            },
+            {
+              "nombre": "Unai",
+              "goles": 7
+            },
+            {
+              "nombre": "JuanPa",
+              "goles": 11
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Pito",
+              "goles": 8
+            },
+            {
+              "nombre": "Raul",
+              "goles": 2
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 8
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 4
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 10",
+          "puskas": "JuanPa",
+          "pichichi": "JuanPa",
+          "fecha": "2024-12-06",
+          "equipo_ganador": [
+            {
+              "nombre": "Juanjo",
+              "goles": 2
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 2
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 3
+            },
+            {
+              "nombre": "Unai",
+              "goles": 3
+            },
+            {
+              "nombre": "JuanPa",
+              "goles": 8
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 4
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Pito",
+              "goles": 5
+            },
+            {
+              "nombre": "Rurru",
+              "goles": 4
+            },
+            {
+              "nombre": "Raul",
+              "goles": 0
+            },
+            {
+              "nombre": "Oscar",
+              "goles": 1
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 7
+            },
+            {
+              "nombre": "Felipe",
+              "goles": 3
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 11",
+          "puskas": "Nadie",
+          "pichichi": "Almendra",
+          "fecha": "2024-12-13",
+          "equipo_ganador": [
+            {
+              "nombre": "Rurru",
+              "goles": 3
+            },
+            {
+              "nombre": "Unai",
+              "goles": 2
+            },
+            {
+              "nombre": "Oscar",
+              "goles": 0
+            },
+            {
+              "nombre": "JuanPa",
+              "goles": 3
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 5
+            },
+            {
+              "nombre": "Felipe",
+              "goles": 2
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Juanjo",
+              "goles": 1
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 0
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 2
+            },
+            {
+              "nombre": "Raul",
+              "goles": 0
+            },
+            {
+              "nombre": "Davisito",
+              "goles": 4
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 4
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 12",
+          "puskas": "Javixu",
+          "pichichi": "Javixu",
+          "fecha": "2024-12-27",
+          "equipo_ganador": [
+            {
+              "nombre": "Almendra",
+              "goles": 7
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 8
+            },
+            {
+              "nombre": "Ivan",
+              "goles": 0
+            },
+            {
+              "nombre": "Diego",
+              "goles": 1
+            },
+            {
+              "nombre": "Manu",
+              "goles": 6
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Pito",
+              "goles": 6
+            },
+            {
+              "nombre": "Juanjo",
+              "goles": 3
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 2
+            },
+            {
+              "nombre": "Davisito",
+              "goles": 6
+            },
+            {
+              "nombre": "Pol",
+              "goles": 0
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 13",
+          "puskas": "Pito",
+          "pichichi": "Juanjo",
+          "fecha": "2025-01-03",
+          "equipo_ganador": [
+            {
+              "nombre": "Rurru",
+              "goles": 3
+            },
+            {
+              "nombre": "Juanjo",
+              "goles": 5
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 2
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 4
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 1
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Pito",
+              "goles": 3
+            },
+            {
+              "nombre": "Raul",
+              "goles": 1
+            },
+            {
+              "nombre": "JuanPa",
+              "goles": 4
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 2
+            },
+            {
+              "nombre": "Secundino",
+              "goles": 1
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 14",
+          "puskas": "Unai",
+          "pichichi": "Unai",
+          "fecha": "2025-01-10",
+          "equipo_ganador": [
+            {
+              "nombre": "Juanjo",
+              "goles": 0
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 1
+            },
+            {
+              "nombre": "Raul",
+              "goles": 1
+            },
+            {
+              "nombre": "Unai",
+              "goles": 5
+            },
+            {
+              "nombre": "Davisito",
+              "goles": 0
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Pito",
+              "goles": 2
+            },
+            {
+              "nombre": "Rurru",
+              "goles": 1
+            },
+            {
+              "nombre": "Oscar",
+              "goles": 1
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 1
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 1
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 15",
+          "puskas": "Unai",
+          "pichichi": "Unai",
+          "fecha": "2025-01-31",
+          "equipo_ganador": [
+            {
+              "nombre": "Davisote",
+              "goles": 3
+            },
+            {
+              "nombre": "Raul",
+              "goles": 1
+            },
+            {
+              "nombre": "Unai",
+              "goles": 6
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 4
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Pito",
+              "goles": 1
+            },
+            {
+              "nombre": "Rurru",
+              "goles": 5
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 2
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 2
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 16",
+          "puskas": "Unai",
+          "pichichi": "Javixu",
+          "fecha": "2025-02-07",
+          "equipo_ganador": [
+            {
+              "nombre": "Puvero",
+              "goles": 4
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 2
+            },
+            {
+              "nombre": "Raul",
+              "goles": 0
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 5
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 7
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Pito",
+              "goles": 4
+            },
+            {
+              "nombre": "Rurru",
+              "goles": 2
+            },
+            {
+              "nombre": "Unai",
+              "goles": 3
+            },
+            {
+              "nombre": "Davisito",
+              "goles": 4
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 17",
+          "puskas": "Nadie",
+          "pichichi": "JuanPa",
+          "fecha": "2025-02-14",
+          "equipo_ganador": [
+            {
+              "nombre": "Pito",
+              "goles": 5
+            },
+            {
+              "nombre": "Rurru",
+              "goles": 1
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 2
+            },
+            {
+              "nombre": "JuanPa",
+              "goles": 7
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 4
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Puvero",
+              "goles": 4
+            },
+            {
+              "nombre": "Raul",
+              "goles": 1
+            },
+            {
+              "nombre": "Unai",
+              "goles": 2
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 2
+            },
+            {
+              "nombre": "Felipe",
+              "goles": 6
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 18",
+          "puskas": "Nadie",
+          "pichichi": "Puvero, Davisote, Unai, Javixu",
+          "fecha": "2025-02-21",
+          "equipo_ganador": [
+            {
+              "nombre": "Rurru",
+              "goles": 2
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 4
+            },
+            {
+              "nombre": "Unai",
+              "goles": 4
+            },
+            {
+              "nombre": "Davisito",
+              "goles": 3
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Pito",
+              "goles": 3
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 4
+            },
+            {
+              "nombre": "Raul",
+              "goles": 1
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 4
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 19",
+          "puskas": "Almendra",
+          "pichichi": "Almendra",
+          "fecha": "2025-03-07",
+          "equipo_ganador": [
+            {
+              "nombre": "Puvero",
+              "goles": 5
+            },
+            {
+              "nombre": "Raul",
+              "goles": 0
+            },
+            {
+              "nombre": "Unai",
+              "goles": 3
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 7
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Pito",
+              "goles": 5
+            },
+            {
+              "nombre": "Rurru",
+              "goles": 2
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 1
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 4
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 20",
+          "puskas": "Unai",
+          "pichichi": "JuanPa",
+          "fecha": "2025-03-22",
+          "equipo_ganador": [
+            {
+              "nombre": "Davisote",
+              "goles": 4
+            },
+            {
+              "nombre": "Raul",
+              "goles": 1
+            },
+            {
+              "nombre": "Davisito",
+              "goles": 4
+            },
+            {
+              "nombre": "JuanPa",
+              "goles": 7
+            },
+            {
+              "nombre": "Felipe",
+              "goles": 5
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Pito",
+              "goles": 4
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 1
+            },
+            {
+              "nombre": "Unai",
+              "goles": 3
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 6
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 21",
+          "puskas": "Dani",
+          "pichichi": "Juanjo",
+          "fecha": "2025-03-28",
+          "equipo_ganador": [
+            {
+              "nombre": "Juanjo",
+              "goles": 7
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 3
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 2
+            },
+            {
+              "nombre": "Raul",
+              "goles": 0
+            },
+            {
+              "nombre": "Unai",
+              "goles": 2
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Pito",
+              "goles": 2
+            },
+            {
+              "nombre": "Rurru",
+              "goles": 2
+            },
+            {
+              "nombre": "Davisito",
+              "goles": 3
+            },
+            {
+              "nombre": "Dani",
+              "goles": 4
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 2
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 22",
+          "puskas": "Davisote",
+          "pichichi": "Rurru, Pito, Davisito",
+          "fecha": "2025-04-11",
+          "equipo_ganador": [
+            {
+              "nombre": "Juanjo",
+              "goles": 1
+            },
+            {
+              "nombre": "Unai",
+              "goles": 4
+            },
+            {
+              "nombre": "JuanPa",
+              "goles": 1
+            },
+            {
+              "nombre": "Rurru",
+              "goles": 5
+            },
+            {
+              "nombre": "Pito",
+              "goles": 5
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Almendra",
+              "goles": 1
+            },
+            {
+              "nombre": "Davisito",
+              "goles": 5
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 1
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 2
+            },
+            {
+              "nombre": "Raul",
+              "goles": 0
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 23",
+          "puskas": "Nadie",
+          "pichichi": "Almendra",
+          "fecha": "2025-04-18",
+          "equipo_ganador": [
+            {
+              "nombre": "Almendra",
+              "goles": 7
+            },
+            {
+              "nombre": "Diego",
+              "goles": 3
+            },
+            {
+              "nombre": "Manu",
+              "goles": 2
+            },
+            {
+              "nombre": "Felipe",
+              "goles": 5
+            },
+            {
+              "nombre": "Pito",
+              "goles": 3
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Raul",
+              "goles": 0
+            },
+            {
+              "nombre": "Juanjo",
+              "goles": 2
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 3
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 6
+            },
+            {
+              "nombre": "JuanPa",
+              "goles": 2
+            },
+            {
+              "nombre": "Giovanny",
+              "goles": 1
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 24",
+          "puskas": "Almendra",
+          "pichichi": "Almendra",
+          "fecha": "2025-04-25",
+          "equipo_ganador": [
+            {
+              "nombre": "Almendra",
+              "goles": 9
+            },
+            {
+              "nombre": "Juanjo",
+              "goles": 1
+            },
+            {
+              "nombre": "Unai",
+              "goles": 3
+            },
+            {
+              "nombre": "Rurru",
+              "goles": 1
+            },
+            {
+              "nombre": "Raul",
+              "goles": 1
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Davisote",
+              "goles": 2
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 2
+            },
+            {
+              "nombre": "Dani",
+              "goles": 3
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 2
+            },
+            {
+              "nombre": "Pito",
+              "goles": 2
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 25",
+          "puskas": "Raul",
+          "pichichi": "Unai",
+          "fecha": "2025-05-09",
+          "equipo_ganador": [
+            {
+              "nombre": "Raul",
+              "goles": 1
+            },
+            {
+              "nombre": "Unai",
+              "goles": 7
+            },
+            {
+              "nombre": "JuanPa",
+              "goles": 3
+            },
+            {
+              "nombre": "Pito",
+              "goles": 2
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 3
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Almendra",
+              "goles": 1
+            },
+            {
+              "nombre": "Juanjo",
+              "goles": 1
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 4
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 3
+            },
+            {
+              "nombre": "Rurru",
+              "goles": 3
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 26",
+          "puskas": "Nadie",
+          "pichichi": "Davisito",
+          "fecha": "2025-05-15",
+          "equipo_ganador": [
+            {
+              "nombre": "Davisito",
+              "goles": 12
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 5
+            },
+            {
+              "nombre": "Juanjo",
+              "goles": 1
+            },
+            {
+              "nombre": "Raul",
+              "goles": 1
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Unai",
+              "goles": 5
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 1
+            },
+            {
+              "nombre": "Rurru",
+              "goles": 6
+            },
+            {
+              "nombre": "Pito",
+              "goles": 4
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 27",
+          "puskas": "Nadie",
+          "pichichi": "Manu",
+          "fecha": "2025-05-17",
+          "equipo_ganador": [
+            {
+              "nombre": "Davisito",
+              "goles": 3
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 1
+            },
+            {
+              "nombre": "Juanjo",
+              "goles": 0
+            },
+            {
+              "nombre": "Unai",
+              "goles": 2
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 0
+            },
+            {
+              "nombre": "Diego",
+              "goles": 0
+            },
+            {
+              "nombre": "Manu",
+              "goles": 6
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Javixu",
+              "goles": 2
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 1
+            },
+            {
+              "nombre": "Aaron",
+              "goles": 0
+            },
+            {
+              "nombre": "Victor",
+              "goles": 0
+            },
+            {
+              "nombre": "Pito",
+              "goles": 2
+            },
+            {
+              "nombre": "Raul",
+              "goles": 0
+            },
+            {
+              "nombre": "Felipe",
+              "goles": 2
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 28",
+          "puskas": "Juanjo",
+          "pichichi": "Pito",
+          "fecha": "2025-05-23",
+          "equipo_ganador": [
+            {
+              "nombre": "Almendra",
+              "goles": 3
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 3
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 3
+            },
+            {
+              "nombre": "Rurru",
+              "goles": 4
+            },
+            {
+              "nombre": "Oscar",
+              "goles": 0
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Juanjo",
+              "goles": 1
+            },
+            {
+              "nombre": "Unai",
+              "goles": 4
+            },
+            {
+              "nombre": "Raul",
+              "goles": 0
+            },
+            {
+              "nombre": "Pito",
+              "goles": 5
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 1
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 29",
+          "puskas": "Nadie",
+          "pichichi": "Almendra",
+          "fecha": "2025-05-30",
+          "equipo_ganador": [
+            {
+              "nombre": "Javixu",
+              "goles": 4
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 7
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 3
+            },
+            {
+              "nombre": "Raul",
+              "goles": 0
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Juanjo",
+              "goles": 0
+            },
+            {
+              "nombre": "Unai",
+              "goles": 4
+            },
+            {
+              "nombre": "Davisito",
+              "goles": 2
+            },
+            {
+              "nombre": "Pito",
+              "goles": 2
+            }
+          ]
+        },
+        {
+          "nombre": "Jornada 30",
+          "puskas": "Manu",
+          "pichichi": "Javixu",
+          "fecha": "2025-06-21",
+          "equipo_ganador": [
+            {
+              "nombre": "Almendra",
+              "goles": 2
+            },
+            {
+              "nombre": "Unai",
+              "goles": 2
+            },
+            {
+              "nombre": "Raul",
+              "goles": 1
+            },
+            {
+              "nombre": "Aaron",
+              "goles": 4
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 4
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Diego",
+              "goles": 2
+            },
+            {
+              "nombre": "Javixu",
+              "goles": 5
+            },
+            {
+              "nombre": "Pito",
+              "goles": 2
+            },
+            {
+              "nombre": "Manu",
+              "goles": 2
+            },
+            {
+              "nombre": "Rurru",
+              "goles": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nombre": "Temporada 2",
+      "jornadas": [
+        {
+          "nombre": "Jornada 1",
+          "puskas": "Davisito",
+          "pichichi": "Davisito",
+          "fecha": "2025-09-05",
+          "equipo_ganador": [
+            {
+              "nombre": "Unai",
+              "goles": 2
+            },
+            {
+              "nombre": "Pito",
+              "goles": 3
+            },
+            {
+              "nombre": "Davisote",
+              "goles": 1
+            },
+            {
+              "nombre": "Davisito",
+              "goles": 5
+            },
+            {
+              "nombre": "Felipe",
+              "goles": 2
+            },
+            {
+              "nombre": "Almendra",
+              "goles": 2
+            }
+          ],
+          "equipo_perdedor": [
+            {
+              "nombre": "Javixu",
+              "goles": 3
+            },
+            {
+              "nombre": "Puvero",
+              "goles": 1
+            },
+            {
+              "nombre": "Diego",
+              "goles": 2
+            },
+            {
+              "nombre": "JuanPa",
+              "goles": 2
+            },
+            {
+              "nombre": "Rurru",
+              "goles": 2
+            },
+            {
+              "nombre": "Juanjo",
+              "goles": 2
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
