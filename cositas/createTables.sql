@@ -114,7 +114,11 @@ select
     m.datetime,
     m.place,
     p.nickname as puskas,
-    case when m.winner = 1 then 'white' else 'black' end as winner,
+    case
+        when m.winner = 1 then 'white'
+        when m.winner = 2 then 'black'
+        else 'tie'
+    end as winner,
     sum(case when mp.team = 1 then mp.goals end) + sum(case when mp.team = 2 then mp.own_goals end)  as goals_white,
     sum(case when mp.team = 2 then mp.goals end) + sum(case when mp.team = 1 then mp.own_goals end) as goals_black
 from match m
