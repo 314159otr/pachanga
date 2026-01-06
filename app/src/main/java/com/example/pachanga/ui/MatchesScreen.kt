@@ -252,6 +252,8 @@ fun MatchesScreen() {
     }
 
     if (team1.isNotEmpty() && team2.isNotEmpty()){
+        val team1goals = team1.sumOf { it["goals"] as Int } + team2.sumOf { it["own_goals"] as Int }
+        val team2goals = team2.sumOf { it["goals"] as Int } + team1.sumOf { it["own_goals"] as Int }
         Box(
             modifier = Modifier
                 .safeDrawingPadding()
@@ -283,8 +285,8 @@ fun MatchesScreen() {
                         .fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text("15")
-                    Text("14")
+                    Text(team1goals.toString())
+                    Text(team2goals.toString())
                 }
 
                 Team2(
