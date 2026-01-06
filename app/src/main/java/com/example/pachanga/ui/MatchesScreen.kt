@@ -79,6 +79,7 @@ fun Player(player: Map<String, Any?>, modifier: Modifier = Modifier){
                         .weight(1f)
                         .aspectRatio(1f)
                         .clip(CircleShape)
+                        .align(Alignment.CenterHorizontally)
                 )
                 Text(
                     text = nickname,
