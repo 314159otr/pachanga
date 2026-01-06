@@ -38,10 +38,23 @@ import com.example.pachanga.data.PachangaDbHelper
 
 @Composable
 fun Player(player: Map<String, Any?>, modifier: Modifier = Modifier){
-    val star = "\uD83C\uDF1F"
-    val goals = player["goals"]
+    val starIcon = "\uD83C\uDF1F"
+    val ownGoalsIcon = "\uD83D\uDED1"
+    val goalsIcon = "⚽"
+
     val nickname = player["nickname"] as String
     val puskas = player["puskas"] == 1
+    val goals = player["goals"] as Int
+    val ownGoals = player["own_goals"] as Int
+    val goalsText =  buildString {
+        append(goalsIcon)
+        append("x$goals")
+        if (ownGoals > 0) {
+            append(" ")
+            append(ownGoalsIcon)
+            append("x$ownGoals")
+        }
+    }
     Row (
         modifier = modifier
             .fillMaxWidth(),
@@ -74,14 +87,14 @@ fun Player(player: Map<String, Any?>, modifier: Modifier = Modifier){
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
                 Text(
-                    text = "⚽x$goals",
+                    text = goalsText,
                     textAlign = TextAlign.Center,
                     color = Color.White,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
             }
             if (puskas){
-                Text(star,
+                Text(starIcon,
                     modifier = Modifier.align(Alignment.TopEnd)
                 )
             }
