@@ -236,8 +236,19 @@ fun MatchesScreen() {
         val table = PachangaDbHelper(context).queryTable(tableName = "vw_match_stats", whereClause = "id_match = (SELECT MAX(id_match) from vw_match_stats)")
         team1.clear()
         team2.clear()
-        team1.addAll(table.rows.filter { x -> x["team"] == 1 })
-        team2.addAll(table.rows.filter { x -> x["team"] == 2 })
+
+        team1.addAll(table.rows.filter {x -> x["team"] == 1 })
+        team2.addAll(table.rows.filter { it["team"] == 2 })
+        /* id_player == 6 is raul who is always the goalkeeper so we put him at
+        the start or end of the array to later print him in the correct position */
+        team1.firstOrNull { it["id_player"] == 6 }?.let {
+            team1.remove(it)
+            team1.add(0, it)
+        }
+        team2.firstOrNull { it["id_player"] == 6 }?.let {
+            team2.remove(it)
+            team2.add(it)
+        }
     }
 
     if (team1.isNotEmpty() && team2.isNotEmpty()){
