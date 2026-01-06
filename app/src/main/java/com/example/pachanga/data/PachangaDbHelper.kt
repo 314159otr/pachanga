@@ -55,18 +55,19 @@ class PachangaDbHelper(context: Context) : SQLiteOpenHelper(
         val rows: MutableList<Map<String, Any?>> = mutableListOf()
     )
     fun  queryTable(
+        distinct: Boolean = false,
         tableName: String,
+        columns: Array<String>? = null,
         whereClause: String? = null,
         whereArgs: Array<String>? = null,
+        groupBy: String? = null,
+        having: String? = null,
+        orderBy: String? = null,
+        limit: String? = null,
     ): DbTable{
         val result = DbTable()
-        val sql = if (whereClause.isNullOrBlank()){
-            "select * from $tableName"
-        } else {
-            "select * from $tableName where $whereClause"
-        }
         val db = readableDatabase
-        val cursor = db.rawQuery(sql,whereArgs)
+        val cursor = db.query(distinct,tableName,columns,whereClause,whereArgs,groupBy,having,orderBy,limit)
         cursor.use {
             val columnCount = cursor.columnCount
             val columnNames = cursor.columnNames

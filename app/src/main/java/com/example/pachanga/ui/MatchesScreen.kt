@@ -233,7 +233,7 @@ fun MatchesScreen() {
     val team2 = remember { mutableStateListOf<Map<String, Any?>>() }
 
     LaunchedEffect(Unit) {
-        val table = PachangaDbHelper(context).queryTable("vw_match_stats","id_match = ?",arrayOf("35"))
+        val table = PachangaDbHelper(context).queryTable(tableName = "vw_match_stats", whereClause = "id_match = (SELECT MAX(id_match) from vw_match_stats)")
         team1.clear()
         team2.clear()
         team1.addAll(table.rows.filter { x -> x["team"] == 1 })
