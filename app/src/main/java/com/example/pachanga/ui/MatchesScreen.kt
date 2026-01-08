@@ -43,7 +43,7 @@ import com.example.pachanga.data.PachangaDbHelper
 @Composable
 fun Player(player: Map<String, Any?>, modifier: Modifier = Modifier){
     val starIcon = "\uD83C\uDF1F"
-    val ownGoalsIcon = "\uD83D\uDED1"
+    val ownGoalsIcon = "\uD83D\uDD34"
     val goalsIcon = "⚽"
 
     val nickname = player["nickname"] as String
