@@ -19,10 +19,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -47,10 +53,11 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.pachanga.R
 import com.example.pachanga.data.PachangaDbHelper
+import java.time.Instant
 import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Locale
-
 
 @Composable
 fun Player(player: Map<String, Any?>, modifier: Modifier = Modifier){
@@ -263,8 +270,14 @@ fun MatchesScreen() {
     var matches by remember { mutableStateOf<List<Map<String, Any?>>>(emptyList()) }
     var selectedMatchIndex by remember { mutableIntStateOf(-1) }
 
+    val datesInUtcStartOfDayMillis = remember { mutableStateListOf<Long>()}
+    var showDatePicker by remember { mutableStateOf(false)}
+
     LaunchedEffect(Unit) {
         matches = PachangaDbHelper(context).queryTable(tableName = "vw_match").rows
+        matches.forEach { match ->
+            datesInUtcStartOfDayMillis.add(toUtcStartOfDayMillis(parseToMillis(match["datetime"] as String)))
+        }
         selectedMatchIndex = matches.size - 1
     }
 
@@ -288,18 +301,15 @@ fun MatchesScreen() {
             team2.add(it)
         }
     }
-
-
-
-
+    if (showDatePicker){
+        DatePickerModal(datesInUtcStartOfDayMillis, { i -> if (i>=0) { selectedMatchIndex = i } }, { showDatePicker = false })
+    }
     Column(
         modifier = Modifier
             .safeDrawingPadding()
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-
-
         if (team1.isNotEmpty() && team2.isNotEmpty()){
             val team1goals = team1.sumOf { it["goals"] as Int } + team2.sumOf { it["own_goals"] as Int }
             val team2goals = team2.sumOf { it["goals"] as Int } + team1.sumOf { it["own_goals"] as Int }
@@ -313,7 +323,8 @@ fun MatchesScreen() {
                     painter = painterResource(R.drawable.football_field_bg),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxSize()
                         .border(
                             BorderStroke(4.dp, Color.White),
                         )
@@ -369,7 +380,11 @@ fun MatchesScreen() {
                 selectedIndex = selectedMatchIndex,
                 onSelectedIndexChange = { newIndex -> selectedMatchIndex = newIndex },
                 matches = matches,
-                modifier = Modifier.fillMaxWidth().heightIn(max = 40.dp).padding(horizontal = 4.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(max = 40.dp)
+                    .padding(horizontal = 4.dp),
+                onOpenCalendar = { showDatePicker = true }
             )
         }
     }
@@ -379,6 +394,7 @@ fun MatchSelectorButton(
     matches: List<Map<String,Any?>>,
     selectedIndex: Int,
     onSelectedIndexChange: (Int) -> Unit,
+    onOpenCalendar: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val dateFormatIn = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
@@ -410,7 +426,7 @@ fun MatchSelectorButton(
                 index = 1,
                 count = 3
             ),
-            onClick = { },
+            onClick = { onOpenCalendar() },
             icon = {  },
             selected = true,
             label = {
@@ -430,6 +446,65 @@ fun MatchSelectorButton(
                     Text(LocalDateTime.parse( matches[nextIndex]["datetime"] as String, dateFormatIn).format(dateFormatOut))
                 }
             }
+        )
+    }
+}
+fun parseToMillis(dateString: String): Long {
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    val localDateTime = LocalDateTime.parse(dateString, formatter)
+    return localDateTime.toInstant(ZoneOffset.UTC).toEpochMilli()
+}
+fun toUtcStartOfDayMillis(localMillis: Long): Long {
+    return Instant.ofEpochMilli(localMillis)
+        .atZone(ZoneOffset.UTC)
+        .toLocalDate()
+        .atStartOfDay(ZoneOffset.UTC)
+        .toInstant()
+        .toEpochMilli()
+}
+fun getYearFromUtcMillis(utcTimeMillis: Long): Int {
+    return Instant
+        .ofEpochMilli(utcTimeMillis)
+        .atZone(ZoneOffset.UTC)
+        .year
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DatePickerModal(
+    allowedDates: List<Long>, // UTC millis at midnight
+    onDateSelected: (Int) -> Unit,
+    onDismiss: () -> Unit
+) {
+    val minYear = getYearFromUtcMillis(allowedDates.elementAt(0))
+    val maxYear = getYearFromUtcMillis(allowedDates.elementAt(allowedDates.size - 1))
+    val datePickerState = rememberDatePickerState(
+        selectableDates = object : SelectableDates {
+            override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+                return allowedDates.contains(utcTimeMillis)
+            }
+        },
+        yearRange = minYear..maxYear
+    )
+    DatePickerDialog(
+        onDismissRequest = onDismiss,
+        confirmButton = {
+            TextButton(onClick = {
+                onDateSelected(allowedDates.indexOf(datePickerState.selectedDateMillis))
+                onDismiss()
+            }) {
+                Text("OK")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Cancel")
+            }
+        }
+    ) {
+        DatePicker(
+            state = datePickerState,
+            showModeToggle = false
         )
     }
 }
