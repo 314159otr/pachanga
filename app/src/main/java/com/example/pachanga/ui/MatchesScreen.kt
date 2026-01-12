@@ -302,7 +302,7 @@ fun MatchesScreen() {
         }
     }
     if (showDatePicker){
-        DatePickerModal(datesInUtcStartOfDayMillis, { i -> if (i>=0) { selectedMatchIndex = i } }, { showDatePicker = false })
+        DatePickerModal(datesInUtcStartOfDayMillis, selectedMatchIndex, { i -> if (i>=0) { selectedMatchIndex = i } }, { showDatePicker = false })
     }
     Column(
         modifier = Modifier
@@ -473,6 +473,7 @@ fun getYearFromUtcMillis(utcTimeMillis: Long): Int {
 @Composable
 fun DatePickerModal(
     allowedDates: List<Long>, // UTC millis at midnight
+    currentDateIndex: Int,
     onDateSelected: (Int) -> Unit,
     onDismiss: () -> Unit
 ) {
@@ -484,6 +485,7 @@ fun DatePickerModal(
                 return allowedDates.contains(utcTimeMillis)
             }
         },
+        initialSelectedDateMillis = allowedDates[currentDateIndex],
         yearRange = minYear..maxYear
     )
     DatePickerDialog(
