@@ -141,7 +141,7 @@ fun Team1 (
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
-                .padding(top = 4.dp)
+                .padding(top = 8.dp)
         ) {
             Player(
                 player = players[i++],
@@ -250,7 +250,7 @@ fun Team2 (
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
-                .padding(bottom = 4.dp)
+                .padding(bottom = 8.dp)
         ) {
             Player(
                 player = players[i++],
