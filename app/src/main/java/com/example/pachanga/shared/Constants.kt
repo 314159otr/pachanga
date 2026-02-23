@@ -12,8 +12,8 @@ object Constants {
         val label: String,
         val resId: Int,
     ) {
-        PLAYERS("players", "Players", R.drawable.ic_players),
-        MATCHES("matches", "Matches", R.drawable.ic_matches),
+        PLAYERS("players", "Jugadores", R.drawable.ic_players),
+        MATCHES("matches", "Partidos", R.drawable.ic_matches),
     }
 
     object RootRoutes {
