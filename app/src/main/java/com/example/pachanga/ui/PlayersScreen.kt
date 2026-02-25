@@ -23,10 +23,10 @@ fun FootballStatsScreen() {
     val context = LocalContext.current
     var headers by remember { mutableStateOf(emptyList<String>()) }
     val rows = remember { mutableStateListOf<Map<String, Any?>>() }
-
+    val season = 2;
     // Use LaunchedEffect to perform the database query
     LaunchedEffect(Unit) {
-        val table = PachangaDbHelper(context).queryTable(tableName = "vw_player_stats_season_2")
+        val table = PachangaDbHelper(context).queryTable(tableName = "vw_player_stats", whereClause = "Temporada = $season")
         headers = table.headers.toMutableList()
         rows.clear()
         rows.addAll(table.rows)

@@ -58,32 +58,32 @@ left join (
 ) pu on pu.id_player = p.id
 group by p.id, p.nickname, p.first_name, p.last_name;
 
-create view vw_player_stats_season_2 as
+create view vw_player_stats as
 select
-    p.nickname,
-    p.id,
-    coalesce(SUM(mp.goals), 0) as goals,
-    coalesce(SUM(mp.own_goals), 0) as own_goals,
-    coalesce(pu.puskas_count, 0) as puskas,
-    coalesce(sum(case when m.winner = mp.team then 1 else 0 end), 0) as wins,
-    count(distinct mp.id_match) as matches,
+    p.nickname as 'Jugador',
+    coalesce(SUM(mp.goals), 0) as 'Goles',
+    coalesce(SUM(mp.own_goals), 0) as 'Autogoles',
+    coalesce(pu.puskas_count, 0) as 'Puskas',
+    ROUND(coalesce(SUM(mp.goals), 0) * 1.0 / count(distinct mp.id_match), 2) as 'G/P',
+    count(distinct mp.id_match) as 'Partidos',
+    coalesce(sum(case when m.winner = mp.team then 1 else 0 end), 0) as 'Ganados',
     COALESCE(
         ROUND(
             CAST(SUM(CASE WHEN m.winner = mp.team THEN 1 ELSE 0 END) AS REAL)
             / NULLIF(COUNT(DISTINCT mp.id_match), 0) * 100,
         2),
     0
-    ) AS win_ratio
+    ) AS '% Ganados',
+    m.season as 'Temporada'
 from player p
 join match_player mp ON mp.id_player = p.id
-join match m on m.id = mp.id_match and m.season = 2
+join match m on m.id = mp.id_match
 left join (
-    select m.puskas as id_player, count(*) as puskas_count
+    select m.puskas as id_player, m.season, count(*) as puskas_count
     from match m
-    where m.season = 2
-    group by m.puskas
-) pu on pu.id_player = p.id
-group by p.id, p.nickname, p.first_name, p.last_name;
+    group by m.puskas, m.season
+) pu on pu.id_player = p.id and pu.season = m.season
+group by p.id, p.nickname, p.first_name, p.last_name, m.season;
 
 create view vw_match_stats as
 select
