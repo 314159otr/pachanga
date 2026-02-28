@@ -50,7 +50,8 @@ fun FootballStatsScreen() {
     Column (Modifier.safeDrawingPadding().fillMaxSize()){
         // Add a check to prevent rendering the DataTable composable until headers and players have data
         if (headers.isNotEmpty() && rows.isNotEmpty()) {
-            DataTable(headers = headers, rows = rows, modifier = Modifier.weight(1f))
+            // We dont want to show the last column
+            DataTable(headers = headers.dropLast(1), rows = rows, modifier = Modifier.weight(1f))
         } else {
             Box(
                 modifier = Modifier.fillMaxSize(),
