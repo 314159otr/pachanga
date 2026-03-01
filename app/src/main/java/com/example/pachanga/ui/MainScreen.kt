@@ -1,5 +1,7 @@
 package com.example.pachanga.ui
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.navigationBars
@@ -10,14 +12,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.pachanga.shared.Constants
 import com.example.pachanga.shared.MyNavigationBar
@@ -25,17 +26,23 @@ import com.example.pachanga.shared.MyNavigationBar
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
-    val startScreen = Constants.NavBarScreen.MATCHES
-    var selectedScreen by rememberSaveable { mutableIntStateOf(startScreen.ordinal) }
+    val startScreen = Constants.NavBarScreen.PLAYERS
     Scaffold(
         bottomBar = {
             MyNavigationBar(windowInsets = WindowInsets.navigationBars) {
-                Constants.NavBarScreen.entries.forEachIndexed { index, screen ->
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentRoute = navBackStackEntry?.destination?.route
+                Constants.NavBarScreen.entries.forEach { screen ->
                     NavigationBarItem(
-                        selected = selectedScreen == index,
+                        selected = currentRoute == screen.route,
                         onClick = {
-                            navController.navigate(screen.route)
-                            selectedScreen = index
+                            navController.navigate(screen.route) {
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
                         },
                         icon = {
                             Icon(
@@ -55,6 +62,10 @@ fun MainScreen() {
         NavHost(
             navController = navController,
             startDestination = startScreen.route,
+            enterTransition = { EnterTransition.None },
+            exitTransition = { ExitTransition.None },
+            popEnterTransition = { EnterTransition.None },
+            popExitTransition = { ExitTransition.None },
             modifier = Modifier
                 .padding(bottom = innerPadding.calculateBottomPadding() - WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding())
         ) {

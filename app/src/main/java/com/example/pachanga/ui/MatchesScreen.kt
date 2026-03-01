@@ -36,6 +36,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -266,7 +267,7 @@ fun MatchesScreen() {
     val team1 = remember { mutableStateListOf<Map<String, Any?>>() }
     val team2 = remember { mutableStateListOf<Map<String, Any?>>() }
     var matches by remember { mutableStateOf<List<Map<String, Any?>>>(emptyList()) }
-    var selectedMatchIndex by remember { mutableIntStateOf(-1) }
+    var selectedMatchIndex by rememberSaveable { mutableIntStateOf(-1) }
 
     val datesInUtcStartOfDayMillis = remember { mutableStateListOf<Long>()}
     var showDatePicker by remember { mutableStateOf(false)}
@@ -276,7 +277,9 @@ fun MatchesScreen() {
         matches.forEach { match ->
             datesInUtcStartOfDayMillis.add(toUtcStartOfDayMillis(parseToMillis(match["datetime"] as String)))
         }
-        selectedMatchIndex = matches.size - 1
+        if (selectedMatchIndex == -1) {
+            selectedMatchIndex = matches.size - 1
+        }
     }
 
     LaunchedEffect(selectedMatchIndex) {
@@ -364,13 +367,6 @@ fun MatchesScreen() {
                         modifier = Modifier.weight(1f)
                     )
                 }
-            }
-        } else {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = "Loading Match...")
             }
         }
         if (matches.isNotEmpty()){

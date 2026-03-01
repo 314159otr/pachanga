@@ -1,6 +1,5 @@
 package com.example.pachanga.ui
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,8 +17,8 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -32,11 +31,13 @@ fun FootballStatsScreen() {
     var headers by remember { mutableStateOf(emptyList<String>()) }
     val rows = remember { mutableStateListOf<Map<String, Any?>>() }
     var seasons by remember { mutableStateOf<List<Map<String, Any?>>>(emptyList()) }
-    var selectedSeasonIndex by remember { mutableIntStateOf(-1) }
+    var selectedSeasonIndex by rememberSaveable { mutableIntStateOf(-1) }
 
     LaunchedEffect(Unit) {
         seasons = PachangaDbHelper(context).queryTable(tableName = "match", distinct = true, columns = arrayOf("season") ).rows
-        selectedSeasonIndex = seasons.size - 1
+        if (selectedSeasonIndex == -1) {
+            selectedSeasonIndex = seasons.size - 1
+        }
     }
     LaunchedEffect(selectedSeasonIndex) {
         if (selectedSeasonIndex  == -1) return@LaunchedEffect
@@ -52,13 +53,6 @@ fun FootballStatsScreen() {
         if (headers.isNotEmpty() && rows.isNotEmpty()) {
             // We dont want to show the last column
             DataTable(headers = headers.dropLast(1), rows = rows, modifier = Modifier.weight(1f))
-        } else {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = "Loading stats...")
-            }
         }
         if (seasons.isNotEmpty()){
             SeasonSelectorButton(
