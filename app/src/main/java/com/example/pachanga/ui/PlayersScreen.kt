@@ -3,9 +3,7 @@ package com.example.pachanga.ui
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
@@ -47,8 +45,7 @@ fun FootballStatsScreen() {
         rows.clear()
         rows.addAll(table.rows)
     }
-
-    Column (Modifier.safeDrawingPadding().fillMaxSize()){
+    Column (Modifier.fillMaxSize()){
         // Add a check to prevent rendering the DataTable composable until headers and players have data
         if (headers.isNotEmpty() && rows.isNotEmpty()) {
             // We dont want to show the last column
@@ -61,8 +58,6 @@ fun FootballStatsScreen() {
                 seasons = seasons,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(max = 40.dp)
-                    .padding(horizontal = 4.dp),
             )
         }
     }

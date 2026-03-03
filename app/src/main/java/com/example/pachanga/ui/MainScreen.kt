@@ -3,9 +3,11 @@ package com.example.pachanga.ui
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -29,7 +31,9 @@ fun MainScreen() {
     val startScreen = Constants.NavBarScreen.PLAYERS
     Scaffold(
         bottomBar = {
-            MyNavigationBar(windowInsets = WindowInsets.navigationBars) {
+            MyNavigationBar(Modifier.windowInsetsPadding(WindowInsets.systemBars.only(
+                WindowInsetsSides.Bottom))
+            ) {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentRoute = navBackStackEntry?.destination?.route
                 Constants.NavBarScreen.entries.forEach { screen ->
@@ -66,8 +70,7 @@ fun MainScreen() {
             exitTransition = { ExitTransition.None },
             popEnterTransition = { EnterTransition.None },
             popExitTransition = { ExitTransition.None },
-            modifier = Modifier
-                .padding(bottom = innerPadding.calculateBottomPadding() - WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding())
+            modifier = Modifier.padding(innerPadding)
         ) {
             composable(Constants.NavBarScreen.PLAYERS.route) { FootballStatsScreen() }
             composable(Constants.NavBarScreen.MATCHES.route) { MatchesScreen() }

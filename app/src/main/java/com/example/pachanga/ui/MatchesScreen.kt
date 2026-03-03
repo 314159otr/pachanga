@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.DatePicker
@@ -307,7 +306,6 @@ fun MatchesScreen() {
     }
     Column(
         modifier = Modifier
-            .safeDrawingPadding()
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -316,7 +314,6 @@ fun MatchesScreen() {
             val team2goals = team2.sumOf { it["goals"] as Int } + team1.sumOf { it["own_goals"] as Int }
             Box(
                 modifier = Modifier
-                    .safeDrawingPadding()
                     .weight(1f)
                     .fillMaxWidth()
             ){
@@ -332,7 +329,6 @@ fun MatchesScreen() {
                 )
                 Column(
                     modifier = Modifier
-                        .safeDrawingPadding()
                         .fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
