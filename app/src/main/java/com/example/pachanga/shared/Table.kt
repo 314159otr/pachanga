@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -21,12 +22,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import kotlin.math.roundToInt
-
 @Composable
 fun DataTable(
     headers: List<String>,
@@ -40,7 +39,7 @@ fun DataTable(
     val verticalScrollState  = rememberScrollState()
     val widths = IntArray(headers.size)
     val currentSorting = remember { mutableStateOf("nickname") }
-    val colors = arrayOf(Color.White, Color.LightGray)
+    val colors = arrayOf(MaterialTheme.colorScheme.secondary, MaterialTheme.colorScheme.tertiary)
 
     val alignments = Array(headers.size) { index ->
         if (rows[0][headers[index]] is Number) {
@@ -62,19 +61,18 @@ fun DataTable(
     }
 
     Column (modifier = modifier){
-        Row (modifier = Modifier.background(Color.Gray)){
+        Row (modifier = Modifier.background(MaterialTheme.colorScheme.background)){
             // first header
             Box(modifier = Modifier
                 .width(widths[0].dp + 16.dp)
                 .height(headerHeight)
-                .background(Color.Gray)
                 .padding(8.dp)
                 .clickable{
                     sortTable(headers.first(), rows, currentSorting = currentSorting)
                 },
                 contentAlignment = alignments[0],
             ){
-                Text(text = headers.first(), fontWeight = FontWeight.Bold)
+                Text(text = headers.first(), fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onBackground)
             }
             // headers
             Row(modifier = Modifier
@@ -84,14 +82,13 @@ fun DataTable(
                     Box(modifier = Modifier
                         .width(widths[index + 1].dp + 16.dp)
                         .height(headerHeight)
-                        .background(Color.Gray)
                         .padding(8.dp)
                         .clickable{
                             sortTable(headers[index + 1], rows, currentSorting = currentSorting)
                         },
                         contentAlignment = alignments[index + 1]
                     ){
-                        Text(text = header, fontWeight = FontWeight.Bold)
+                        Text(text = header, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onBackground)
                     }
                 }
             }

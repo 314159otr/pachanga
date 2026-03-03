@@ -1,9 +1,10 @@
 package com.example.pachanga.ui
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
@@ -18,6 +19,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.pachanga.data.PachangaDbHelper
@@ -45,11 +48,19 @@ fun FootballStatsScreen() {
         rows.clear()
         rows.addAll(table.rows)
     }
+    val x = MaterialTheme.colorScheme.secondary
     Column (Modifier.fillMaxSize()){
         // Add a check to prevent rendering the DataTable composable until headers and players have data
         if (headers.isNotEmpty() && rows.isNotEmpty()) {
             // We dont want to show the last column
-            DataTable(headers = headers.dropLast(1), rows = rows, modifier = Modifier.weight(1f))
+            DataTable(headers = headers.dropLast(1), rows = rows, modifier = Modifier.weight(1f).drawBehind {
+                drawLine(
+                    color = x,
+                    start = Offset(0f, 0f),
+                    end = Offset(size.width, 0f),
+                    strokeWidth = 1f
+                )
+            })
         }
         if (seasons.isNotEmpty()){
             SeasonSelectorButton(
@@ -78,6 +89,7 @@ fun SeasonSelectorButton(
                 index = 1,
                 count = 3
             ),
+            border = BorderStroke(-1.dp, MaterialTheme.colorScheme.secondary),
             onClick = {onSelectedIndexChange(prevIndex)},
             selected = false,
             enabled = prevIndex >= 0,
@@ -92,6 +104,7 @@ fun SeasonSelectorButton(
                 index = 1,
                 count = 3
             ),
+            border = BorderStroke(-1.dp, MaterialTheme.colorScheme.secondary),
             onClick = {  },
             icon = {  },
             selected = true,
@@ -102,6 +115,7 @@ fun SeasonSelectorButton(
                 index = 1,
                 count = 3
             ),
+            border = BorderStroke(-1.dp, MaterialTheme.colorScheme.secondary),
             onClick = { onSelectedIndexChange(nextIndex) },
             selected = false,
             enabled = nextIndex < seasons.size,
