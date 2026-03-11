@@ -1,6 +1,7 @@
 package com.example.pachanga.ui
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -49,7 +50,7 @@ fun FootballStatsScreen() {
         rows.addAll(table.rows)
     }
     val x = MaterialTheme.colorScheme.secondary
-    Column (Modifier.fillMaxSize()){
+    Column (Modifier.fillMaxSize().background(MaterialTheme.colorScheme.tertiary)){
         // Add a check to prevent rendering the DataTable composable until headers and players have data
         if (headers.isNotEmpty() && rows.isNotEmpty()) {
             // We dont want to show the last column
@@ -69,6 +70,14 @@ fun FootballStatsScreen() {
                 seasons = seasons,
                 modifier = Modifier
                     .fillMaxWidth()
+                    .drawBehind {
+                        drawLine(
+                            color = x,
+                            start = Offset(0f, 0f),
+                            end = Offset(size.width, 0f),
+                            strokeWidth = 1f
+                        )
+                    },
             )
         }
     }
@@ -83,13 +92,19 @@ fun SeasonSelectorButton(
     val prevIndex = selectedIndex - 1
     val nextIndex = selectedIndex + 1
 
-    SingleChoiceSegmentedButtonRow(modifier) {
+    SingleChoiceSegmentedButtonRow(modifier.background(color = MaterialTheme.colorScheme.background)) {
+        val colors = SegmentedButtonDefaults.colors(
+                inactiveContainerColor = MaterialTheme.colorScheme.background,
+                activeContainerColor = MaterialTheme.colorScheme.primary,
+                disabledInactiveContainerColor = MaterialTheme.colorScheme.background,
+            )
         SegmentedButton(
+            colors = colors,
             shape = SegmentedButtonDefaults.itemShape(
                 index = 1,
                 count = 3
             ),
-            border = BorderStroke(-1.dp, MaterialTheme.colorScheme.secondary),
+            border = BorderStroke((-1).dp, MaterialTheme.colorScheme.secondary),
             onClick = {onSelectedIndexChange(prevIndex)},
             selected = false,
             enabled = prevIndex >= 0,
@@ -100,22 +115,24 @@ fun SeasonSelectorButton(
             },
         )
         SegmentedButton(
+            colors = colors,
             shape = SegmentedButtonDefaults.itemShape(
                 index = 1,
                 count = 3
             ),
-            border = BorderStroke(-1.dp, MaterialTheme.colorScheme.secondary),
+            border = BorderStroke((-1).dp, MaterialTheme.colorScheme.secondary),
             onClick = {  },
             icon = {  },
             selected = true,
             label = { Text("Temporada " + seasons[selectedIndex]["season"].toString()) },
         )
         SegmentedButton(
+            colors = colors,
             shape = SegmentedButtonDefaults.itemShape(
                 index = 1,
                 count = 3
             ),
-            border = BorderStroke(-1.dp, MaterialTheme.colorScheme.secondary),
+            border = BorderStroke((-1).dp, MaterialTheme.colorScheme.secondary),
             onClick = { onSelectedIndexChange(nextIndex) },
             selected = false,
             enabled = nextIndex < seasons.size,

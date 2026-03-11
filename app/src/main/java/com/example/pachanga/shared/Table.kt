@@ -3,7 +3,6 @@ package com.example.pachanga.shared
 import android.content.Context
 import android.graphics.Paint
 import android.util.TypedValue
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
@@ -22,10 +21,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import kotlin.math.roundToInt
+
 @Composable
 fun DataTable(
     headers: List<String>,
@@ -39,8 +41,8 @@ fun DataTable(
     val verticalScrollState  = rememberScrollState()
     val widths = IntArray(headers.size)
     val currentSorting = remember { mutableStateOf("nickname") }
-    val colors = arrayOf(MaterialTheme.colorScheme.secondary, MaterialTheme.colorScheme.tertiary)
 
+    val secondaryColor = MaterialTheme.colorScheme.secondary
     val alignments = Array(headers.size) { index ->
         if (rows[0][headers[index]] is Number) {
             Alignment.CenterEnd
@@ -61,7 +63,7 @@ fun DataTable(
     }
 
     Column (modifier = modifier){
-        Row (modifier = Modifier.background(MaterialTheme.colorScheme.background)){
+        Row (modifier = Modifier){
             // first header
             Box(modifier = Modifier
                 .width(widths[0].dp + 16.dp)
@@ -95,20 +97,30 @@ fun DataTable(
         }
         Row (modifier = Modifier.weight(1f)){
             // first column
-            Column (modifier = Modifier
-                .width(widths[0].dp + 16.dp)
-                .verticalScroll(verticalScrollState, overscrollEffect = null)
+            Column (
+                Modifier.verticalScroll(verticalScrollState, overscrollEffect = null)
             ) {
-                rows.forEachIndexed { i, row ->
-                    Box(
-                        modifier = Modifier
-                            .width(widths[0].dp + 16.dp)
-                            .height(rowHeight)
-                            .background(colors[i % 2])
-                            .padding(8.dp),
-                        contentAlignment = alignments[0]
-                    ) {
-                        Text(text = row[headers[0]].toString(), fontWeight = FontWeight.SemiBold)
+                rows.forEach { row ->
+                    Row(modifier = Modifier
+                        .drawBehind {
+                            drawLine(
+                                color = secondaryColor,
+                                start = Offset(0f, 0f),
+                                end = Offset(size.width, 0f),
+                                strokeWidth = 1f
+                            )
+                        },
+
+                        ) {
+                        Box(
+                            modifier = Modifier
+                                .width(widths[0].dp + 16.dp)
+                                .height(rowHeight)
+                                .padding(8.dp),
+                            contentAlignment = alignments[0]
+                        ) {
+                            Text(text = row[headers[0]].toString(), fontWeight = FontWeight.SemiBold)
+                        }
                     }
                 }
             }
@@ -119,9 +131,18 @@ fun DataTable(
                 .verticalScroll(verticalScrollState, overscrollEffect = null)
             ){
                 Column {
-                    rows.forEachIndexed { index, row ->
+                    rows.forEach { row ->
                         Row(modifier = Modifier
-                            .background(colors[index % 2])) {
+                            .drawBehind {
+                                drawLine(
+                                    color = secondaryColor,
+                                    start = Offset(0f, 0f),
+                                    end = Offset(size.width, 0f),
+                                    strokeWidth = 1f
+                                )
+                            },
+
+                        ) {
                             for (i in 1 until headers.size){
                                 Box(modifier = Modifier
                                     .width(widths[i].dp + 16.dp)
