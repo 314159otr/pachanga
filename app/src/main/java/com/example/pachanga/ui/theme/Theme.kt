@@ -32,23 +32,23 @@ private val LightColorScheme = lightColorScheme(
 
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Dark3,
-    onPrimary = Dark2,
-    primaryContainer = Dark3,
-    onPrimaryContainer = Dark2,
+    primary = DarkAccentColor,
+    onPrimary = DarkTextColor,
+    primaryContainer = DarkAccentColor,
+    onPrimaryContainer = DarkTextColor,
 
-    secondary = Dark4,
-    onSecondary = Dark2,
-    secondaryContainer = Dark3,
-    onSecondaryContainer = Dark2,
+    secondary = DarkDetailColor,
+    onSecondary = DarkTextColor,
+    secondaryContainer = DarkAccentColor,
+    onSecondaryContainer = DarkTextColor,
 
-    tertiary = Dark5,
-    onTertiary = Dark2,
+    tertiary = DarkMainColor,
+    onTertiary = DarkTextColor,
 
-    background = Dark1,
-    onBackground = Dark2,
-    surface = Dark1,
-    onSurface = Dark2
+    background = DarkBackgroundColor,
+    onBackground = DarkTextColor,
+    surface = DarkBackgroundColor,
+    onSurface = DarkTextColor
 )
 
 @Composable
