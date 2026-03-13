@@ -3,6 +3,7 @@ package com.example.pachanga.shared
 import android.content.Context
 import android.graphics.Paint
 import android.util.TypedValue
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
@@ -63,7 +64,7 @@ fun DataTable(
     }
 
     Column (modifier = modifier){
-        Row (modifier = Modifier){
+        Row (modifier = Modifier.background(MaterialTheme.colorScheme.background)){
             // first header
             Box(modifier = Modifier
                 .width(widths[0].dp + 16.dp)
