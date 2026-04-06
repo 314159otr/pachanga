@@ -60,6 +60,7 @@ import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import kotlin.random.Random
 
 @Composable
 fun Player(player: Map<String, Any?>, modifier: Modifier = Modifier){
@@ -292,6 +293,9 @@ fun MatchesScreen() {
 
         team1.addAll(table.rows.filter {x -> x["team"] == 1 })
         team2.addAll(table.rows.filter { it["team"] == 2 })
+        // Shuffle the teams with a seed so the player position is random but the same for each match
+        team1.shuffle(Random(selectedMatchIndex))
+        team2.shuffle(Random(selectedMatchIndex))
         /* id_player == 6 is raul who is always the goalkeeper so we put him at
         the start or end of the array to later print him in the correct position */
         team1.firstOrNull { it["id_player"] == 6 }?.let {
