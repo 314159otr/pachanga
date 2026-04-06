@@ -136,14 +136,14 @@ fun Team1 (
     val length = players.size
     Column(
         modifier = modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(top = 8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Row(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
-                .padding(top = 8.dp)
         ) {
             Player(
                 player = players[i++],
@@ -203,7 +203,8 @@ fun Team2 (
     val length = players.size
     Column(
         modifier = modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(bottom = 8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Row(
@@ -252,7 +253,6 @@ fun Team2 (
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
-                .padding(bottom = 8.dp)
         ) {
             Player(
                 player = players[i++],
