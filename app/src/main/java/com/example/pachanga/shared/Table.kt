@@ -3,6 +3,7 @@ package com.example.pachanga.shared
 import android.content.Context
 import android.graphics.Paint
 import android.util.TypedValue
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -12,7 +13,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -33,16 +33,15 @@ import kotlin.math.roundToInt
 fun DataTable(
     headers: List<String>,
     rows: MutableList<Map<String, Any?>>,
-    modifier: Modifier
+    horizontalScrollState: ScrollState,
+    verticalScrollState: ScrollState,
+    modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
     val headerHeight = 48.dp
     val rowHeight = 48.dp
-    val horizontalScrollState = rememberScrollState()
-    val verticalScrollState  = rememberScrollState()
     val widths = IntArray(headers.size)
     val currentSorting = remember { mutableStateOf("nickname") }
-
     val secondaryColor = MaterialTheme.colorScheme.secondary
     val alignments = Array(headers.size) { index ->
         if (rows[0][headers[index]] is Number) {
@@ -62,7 +61,6 @@ fun DataTable(
             }
         }
     }
-
     Column (modifier = modifier){
         Row (modifier = Modifier.background(MaterialTheme.colorScheme.background)){
             // first header
