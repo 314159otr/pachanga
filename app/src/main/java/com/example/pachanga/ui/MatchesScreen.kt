@@ -95,8 +95,8 @@ fun Player(player: Map<String, Any?>, modifier: Modifier = Modifier){
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(player["profile_image_url"] as String)
-                        .placeholder(R.drawable.ic_players)
-                        .error(R.drawable.ic_players)
+                        .placeholder(R.drawable.placeholder)
+                        .error(R.drawable.placeholder)
                         .crossfade(true)
                         .build(),
                     contentDescription = "$nickname image",
