@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -24,6 +25,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.pachanga.data.PachangaDbHelper
 import com.example.pachanga.shared.Constants
 import com.example.pachanga.shared.MyNavigationBar
 
@@ -31,6 +33,7 @@ import com.example.pachanga.shared.MyNavigationBar
 fun MainScreen() {
     val navController = rememberNavController()
     val startScreen = Constants.NavBarScreen.PLAYERS
+    val context = LocalContext.current
     Scaffold(
         bottomBar = {
             MyNavigationBar(Modifier.windowInsetsPadding(WindowInsets.systemBars.only(
@@ -42,12 +45,14 @@ fun MainScreen() {
                     NavigationBarItem(
                         selected = false,
                         onClick = {
-                            navController.navigate(screen.route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
+                            if (PachangaDbHelper(context).databaseExists()){
+                                navController.navigate(screen.route) {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
                                 }
-                                launchSingleTop = true
-                                restoreState = true
                             }
                         },
                         icon = {

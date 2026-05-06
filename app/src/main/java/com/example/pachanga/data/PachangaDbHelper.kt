@@ -5,6 +5,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import com.example.pachanga.shared.Constants
 import java.io.File
 
 class PachangaDbHelper(context: Context) : SQLiteOpenHelper(
@@ -14,7 +15,7 @@ class PachangaDbHelper(context: Context) : SQLiteOpenHelper(
     DB_VERSION
 ) {
 
-    private val dbPath = context.filesDir.path + "/databases/"
+    private val dbPath = context.filesDir.path + "/" + Constants.Database.DIR + "/"
     private val dbFile = File(dbPath, DB_NAME)
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -35,25 +36,19 @@ class PachangaDbHelper(context: Context) : SQLiteOpenHelper(
         return super.getReadableDatabase()
     }
 
-    // Custom getter to check for the downloaded database file
-    override fun getWritableDatabase(): SQLiteDatabase {
-        if (dbFile.exists()) {
-            Log.d("PachangaDbHelper", "Opening downloaded database at: ${dbFile.absolutePath}")
-            return SQLiteDatabase.openDatabase(dbFile.path, null, SQLiteDatabase.OPEN_READWRITE)
-        }
-        Log.d("PachangaDbHelper", "Opening database from assets.")
-        return super.getWritableDatabase()
-    }
-
-
     companion object {
-        private const val DB_NAME = "pachanga.db"
+        private const val DB_NAME = Constants.Database.NAME
         private const val DB_VERSION = 1
     }
     data class DbTable(
         var headers: List<String> = emptyList(),
         val rows: MutableList<Map<String, Any?>> = mutableListOf()
     )
+
+    fun databaseExists() : Boolean {
+        return dbFile.exists()
+    }
+
     fun  queryTable(
         distinct: Boolean = false,
         tableName: String,
