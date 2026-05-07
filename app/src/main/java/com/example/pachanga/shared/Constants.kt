@@ -6,7 +6,7 @@ object Constants {
     object Database {
         const val DIR = "databases"
         const val NAME = "pachanga.db"
-        const val DOWNLOAD_FILE_URL = "https://github.com/314159otr/pachanga/releases/latest/download/$NAME"
+        const val DOWNLOAD_FILE_URL = "https://raw.githubusercontent.com/314159otr/pachanga/main/Database/$NAME"
     }
     enum class NavBarScreen(
         val route: String,
