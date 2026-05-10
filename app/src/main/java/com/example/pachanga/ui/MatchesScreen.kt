@@ -439,7 +439,12 @@ fun MatchSelectorButton(
             icon = {  },
             selected = true,
             label = {
-                Text(LocalDateTime.parse( matches[selectedIndex]["datetime"] as String, dateFormatIn).format(dateFormatOut))
+                Text(
+                    LocalDateTime.parse(
+                        matches[selectedIndex]["datetime"] as String,
+                        dateFormatIn).format(dateFormatOut),
+                    color = MaterialTheme.colorScheme.surface
+                )
             }
         )
         SegmentedButton(

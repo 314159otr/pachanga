@@ -134,6 +134,7 @@ fun FootballStatsScreen() {
                     modifier = Modifier.align(Alignment.BottomEnd).padding(16.dp)
                 ) {
                     FloatingActionButton(
+                        contentColor = MaterialTheme.colorScheme.background,
                         onClick = {
                             headers = emptyList()
                             seasons = emptyList()
@@ -156,7 +157,8 @@ fun FootballStatsScreen() {
                     ) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_download),
-                            contentDescription = "Download"
+                            contentDescription = "Download",
+                            tint = MaterialTheme.colorScheme.surface
                         )
                     }
                 }
@@ -224,7 +226,7 @@ fun SeasonSelectorButton(
             onClick = {  },
             icon = {  },
             selected = true,
-            label = { Text("Temporada " + seasons[selectedIndex]["season"].toString()) },
+            label = { Text("Temporada " + seasons[selectedIndex]["season"].toString(), color = MaterialTheme.colorScheme.surface)},
         )
         SegmentedButton(
             colors = colors,

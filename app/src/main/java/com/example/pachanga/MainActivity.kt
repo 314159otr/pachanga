@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
                     )
                 }
             )
-            PachangaTheme(dynamicColor = false) {
+            PachangaTheme() {
                 MainScreen()
             }
         }
