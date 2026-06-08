@@ -18,3 +18,4 @@ gradle/gradle-daemon-jvm.properties
 .cxx
 local.properties
 /.kotlin/errors
+app/release
